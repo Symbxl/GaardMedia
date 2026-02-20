@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
+import ChatWidget from "@/components/chat-widget";
 import {
   FadeIn,
   FadeInLeft,
@@ -548,8 +549,8 @@ export default function Home() {
       >
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="flex h-18 items-center justify-between">
-            <a href="#" className="relative z-10 inline-flex items-center justify-center rounded-lg bg-black px-3 py-1.5">
-              <Image src="/logo.avif" alt="Gaard Media" width={140} height={40} className="h-9 w-auto" />
+            <a href="#" className="relative z-10 inline-flex items-center justify-center">
+              <Image src="/logo.avif" alt="Gaard Media" width={140} height={40} className="h-9 w-auto brightness-0" />
             </a>
 
             <div className="hidden lg:flex items-center gap-10">
@@ -1403,8 +1404,8 @@ export default function Home() {
           <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
             {/* Brand */}
             <div className="sm:col-span-2 lg:col-span-1">
-              <a href="#" className="inline-flex items-center justify-center rounded-lg bg-black px-3 py-1.5">
-                <Image src="/logo.avif" alt="Gaard Media" width={120} height={34} className="h-8 w-auto" />
+              <a href="#" className="inline-flex items-center justify-center">
+                <Image src="/logo.avif" alt="Gaard Media" width={120} height={34} className="h-8 w-auto brightness-0" />
               </a>
               <p className="mt-4 text-sm text-gray-500 leading-relaxed max-w-xs">
                 Creative video production and media agency helping brands tell their stories and drive real results.
@@ -1486,6 +1487,8 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      <ChatWidget />
     </div>
   );
 }
