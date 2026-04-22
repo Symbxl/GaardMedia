@@ -103,7 +103,13 @@ type NavLink = { href: string; label: string; dropdown?: undefined } | { label: 
 
 const navLinks: NavLink[] = [
   { href: "/#services", label: "Services" },
-  { href: "/projects", label: "Projects" },
+  {
+    label: "Projects",
+    dropdown: [
+      { href: "/projects", label: "Projects" },
+      { href: "/case-study", label: "Case Study" },
+    ],
+  },
   {
     label: "Meet the Team",
     dropdown: [
@@ -131,7 +137,7 @@ function formatDate(dateStr: string) {
 export default function BlogPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [navDropdownOpen, setNavDropdownOpen] = useState(false);
+  const [navDropdownOpen, setNavDropdownOpen] = useState<string | null>(null);
   const [activeCategory, setActiveCategory] = useState("All");
   const { scrollYProgress } = useScroll();
 

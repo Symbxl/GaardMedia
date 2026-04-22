@@ -117,7 +117,13 @@ type NavLink = { href: string; label: string; dropdown?: undefined } | { label: 
 
 const navLinks: NavLink[] = [
   { href: "/#services", label: "Services" },
-  { href: "/projects", label: "Projects" },
+  {
+    label: "Projects",
+    dropdown: [
+      { href: "/projects", label: "Projects" },
+      { href: "/case-study", label: "Case Study" },
+    ],
+  },
   {
     label: "Meet the Team",
     dropdown: [
@@ -173,7 +179,7 @@ function getVideoSrc(video: typeof projects[0], muted: boolean) {
 export default function ProjectsPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [navDropdownOpen, setNavDropdownOpen] = useState(false);
+  const [navDropdownOpen, setNavDropdownOpen] = useState<string | null>(null);
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
   const [videoMuted, setVideoMuted] = useState(true);
   const { scrollYProgress } = useScroll();
@@ -229,15 +235,15 @@ export default function ProjectsPage() {
                   <div
                     key={link.label}
                     className="relative"
-                    onMouseEnter={() => setNavDropdownOpen(true)}
-                    onMouseLeave={() => setNavDropdownOpen(false)}
+                    onMouseEnter={() => setNavDropdownOpen(link.label)}
+                    onMouseLeave={() => setNavDropdownOpen(null)}
                   >
                     <button className="relative flex items-center gap-1 text-[13px] font-medium uppercase tracking-wider transition-colors duration-300 text-gray-500 hover:text-gray-900">
                       {link.label}
-                      <ChevronDownIcon className={`w-3.5 h-3.5 transition-transform duration-200 ${navDropdownOpen ? "rotate-180" : ""}`} />
+                      <ChevronDownIcon className={`w-3.5 h-3.5 transition-transform duration-200 ${navDropdownOpen === link.label ? "rotate-180" : ""}`} />
                     </button>
                     <AnimatePresence>
-                      {navDropdownOpen && (
+                      {navDropdownOpen === link.label && (
                         <motion.div
                           initial={{ opacity: 0, y: 8 }}
                           animate={{ opacity: 1, y: 0 }}
