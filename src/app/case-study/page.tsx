@@ -122,7 +122,13 @@ type NavLink =
 
 const navLinks: NavLink[] = [
   { href: "/#services", label: "Services" },
-  { href: "/projects", label: "Projects" },
+  {
+    label: "Projects",
+    dropdown: [
+      { href: "/projects", label: "Projects" },
+      { href: "/case-study", label: "Case Study" },
+    ],
+  },
   {
     label: "Meet the Team",
     dropdown: [
