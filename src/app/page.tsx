@@ -260,7 +260,10 @@ const services = [
   },
 ];
 
-const brandLogos = Array.from({ length: 10 }, (_, i) => `/${i + 1}.avif`);
+const brandLogos = [
+  ...Array.from({ length: 10 }, (_, i) => `/${i + 1}.avif`),
+  "/orange.png",
+];
 
 const processSteps = [
   {
@@ -417,12 +420,10 @@ export default function Home() {
   const [scrolled, setScrolled] = useState(false);
   const [navDropdownOpen, setNavDropdownOpen] = useState<string | null>(null);
   const [wordIndex, setWordIndex] = useState(0);
-  const [aboutWordIndex, setAboutWordIndex] = useState(0);
   const [impactMuted, setImpactMuted] = useState(false);
   const [impactPlaying, setImpactPlaying] = useState(false);
   const impactVideoRef = useRef<HTMLVideoElement>(null);
   const impactSectionRef = useRef<HTMLDivElement>(null);
-  const aboutWords = ["Grow", "Connect", "Engage"];
 
   const rotatingWords = ["Brands", "Non-Profits", "Businesses", "Creators"];
   const { scrollYProgress } = useScroll();
@@ -441,13 +442,6 @@ export default function Home() {
     }, 2500);
     return () => clearInterval(interval);
   }, [rotatingWords.length]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setAboutWordIndex((prev) => (prev + 1) % aboutWords.length);
-    }, 2500);
-    return () => clearInterval(interval);
-  }, [aboutWords.length]);
 
   // Play/pause impact video based on scroll visibility
   useEffect(() => {
@@ -512,14 +506,14 @@ export default function Home() {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? "bg-gray-800/95 backdrop-blur-xl border-b border-gray-700/40 shadow-lg shadow-black/20"
-            : "bg-gray-800/85 backdrop-blur-md"
+            ? "bg-white/90 backdrop-blur-xl border-b border-gray-200/60 shadow-sm"
+            : "bg-white/70 backdrop-blur-md"
         }`}
       >
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="flex h-20 items-center justify-between">
             <a href="#" className="relative z-10 inline-flex items-center justify-center">
-              <Image src="/logo.png" alt="Gaard Media" width={117} height={48} className="h-12 w-auto" />
+              <Image src="/logo.png" alt="Gaard Media" width={117} height={48} className="h-12 w-auto brightness-0" />
             </a>
 
             <div className="hidden lg:flex items-center gap-10">
@@ -531,7 +525,7 @@ export default function Home() {
                     onMouseEnter={() => setNavDropdownOpen(link.label)}
                     onMouseLeave={() => setNavDropdownOpen(null)}
                   >
-                    <button className="relative flex items-center gap-1 text-[13px] font-medium uppercase tracking-wider transition-colors duration-300 text-gray-300 hover:text-white">
+                    <button className="relative flex items-center gap-1 text-[13px] font-medium uppercase tracking-wider transition-colors duration-300 text-gray-500 hover:text-gray-900">
                       {link.label}
                       <ChevronDownIcon className={`w-3.5 h-3.5 transition-transform duration-200 ${navDropdownOpen === link.label ? "rotate-180" : ""}`} />
                     </button>
@@ -561,7 +555,7 @@ export default function Home() {
                   <a
                     key={link.href}
                     href={link.href}
-                    className="relative text-[13px] font-medium uppercase tracking-wider transition-colors duration-300 text-gray-300 hover:text-white after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-0 after:bg-red-500 after:transition-all hover:after:w-full"
+                    className="relative text-[13px] font-medium uppercase tracking-wider transition-colors duration-300 text-gray-500 hover:text-gray-900 after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-0 after:bg-red-500 after:transition-all hover:after:w-full"
                   >
                     {link.label}
                   </a>
@@ -578,7 +572,7 @@ export default function Home() {
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 transition-colors text-gray-200"
+              className="lg:hidden p-2 transition-colors text-gray-700"
             >
               {mobileMenuOpen ? <XIcon className="w-6 h-6" /> : <MenuIcon className="w-6 h-6" />}
             </button>
@@ -592,7 +586,7 @@ export default function Home() {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
-              className="lg:hidden overflow-hidden border-t border-gray-700/40 bg-gray-800"
+              className="lg:hidden overflow-hidden border-t border-gray-100 bg-white"
             >
               <div className="px-6 pb-8 pt-6 space-y-1">
                 {navLinks.map((link, i) =>
@@ -602,7 +596,7 @@ export default function Home() {
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: i * 0.05 }}
-                        className="py-3 text-lg font-medium text-gray-500 border-b border-gray-700/40"
+                        className="py-3 text-lg font-medium text-gray-400 border-b border-gray-50"
                       >
                         {link.label}
                       </motion.p>
@@ -614,7 +608,7 @@ export default function Home() {
                           initial={{ opacity: 0, x: -20 }}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: (i + j + 1) * 0.05 }}
-                          className="block py-3 pl-4 text-base font-medium text-gray-200 hover:text-red-400 transition-colors border-b border-gray-700/40"
+                          className="block py-3 pl-4 text-base font-medium text-gray-700 hover:text-red-600 transition-colors border-b border-gray-50"
                         >
                           {item.label}
                         </motion.a>
@@ -628,7 +622,7 @@ export default function Home() {
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: i * 0.05 }}
-                      className="block py-3 text-lg font-medium text-gray-200 hover:text-red-400 transition-colors border-b border-gray-700/40"
+                      className="block py-3 text-lg font-medium text-gray-700 hover:text-red-600 transition-colors border-b border-gray-50"
                     >
                       {link.label}
                     </motion.a>
@@ -802,7 +796,7 @@ export default function Home() {
                     <PlayIcon className="w-5 h-5 text-red-600" />
                   </div>
                   <div>
-                    <p className="text-sm font-bold text-gray-900">150+ Projects</p>
+                    <p className="text-sm font-bold text-gray-900">500+ Projects</p>
                     <p className="text-xs text-gray-500">Delivered successfully</p>
                   </div>
                 </div>
@@ -874,19 +868,27 @@ export default function Home() {
       {/* ═══════════════════════════════════════
           BRANDS MARQUEE
           ═══════════════════════════════════════ */}
-      <section className="py-6 lg:py-8 overflow-hidden">
+      <section className="py-10 lg:py-14 overflow-hidden">
+        <FadeIn className="mx-auto max-w-7xl px-6 lg:px-8 mb-8 text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gray-400">
+            Trusted by brands, creators, and nonprofits
+          </p>
+        </FadeIn>
         <div className="relative">
-          <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-white to-transparent z-10" />
-          <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-white to-transparent z-10" />
-          <div className="animate-marquee flex items-center gap-6 whitespace-nowrap">
+          <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-40 bg-gradient-to-r from-white via-white to-transparent z-10" />
+          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-40 bg-gradient-to-l from-white via-white to-transparent z-10" />
+          <div className="animate-marquee flex items-center gap-4 lg:gap-6 whitespace-nowrap">
             {[...brandLogos, ...brandLogos].map((src, i) => (
-              <div key={`row1-${i}`} className="flex-shrink-0 flex items-center justify-center rounded-lg bg-gray-50 border border-gray-100 px-6 py-3 hover:bg-white hover:shadow-md hover:border-gray-200 transition-all duration-300">
+              <div
+                key={`row1-${i}`}
+                className="group flex-shrink-0 flex items-center justify-center h-20 w-40 lg:h-24 lg:w-48 rounded-xl border border-gray-100 bg-white/60 hover:bg-white hover:border-gray-200 hover:shadow-md transition-all duration-300"
+              >
                 <Image
                   src={src}
                   alt={`Brand partner ${(i % 10) + 1}`}
-                  width={100}
-                  height={40}
-                  className="h-6 lg:h-8 w-auto object-contain brightness-0 hover:brightness-0 transition-all duration-300"
+                  width={160}
+                  height={64}
+                  className="max-h-10 lg:max-h-12 w-auto object-contain brightness-0 opacity-60 group-hover:opacity-100 transition-all duration-300"
                 />
               </div>
             ))}
@@ -965,38 +967,82 @@ export default function Home() {
 
 
       {/* ═══════════════════════════════════════
-          ABOUT
+          HOW TO GET STARTED
           ═══════════════════════════════════════ */}
-      <section id="about" className="py-24 lg:py-32 relative overflow-hidden">
+      <section id="get-started" className="py-24 lg:py-32 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-white via-gray-50/50 to-white" />
 
         <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
-          {/* About text */}
-          <FadeIn>
-            <div className="mx-auto max-w-3xl text-center">
-              <div className="text-sm font-semibold uppercase tracking-[0.2em] text-red-600 h-6 overflow-hidden">
-                <AnimatePresence mode="wait">
-                  <motion.span
-                    key={aboutWords[aboutWordIndex]}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.4, ease: "easeInOut" }}
-                    className="inline-block"
-                  >
-                    {aboutWords[aboutWordIndex]}
-                  </motion.span>
-                </AnimatePresence>
-              </div>
-              <h2 className="mt-4 font-display text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl lg:text-5xl lg:leading-tight">
-                A Creative Agency That Puts Your Story First
-              </h2>
-              <p className="mt-6 text-lg leading-relaxed text-gray-500">
-                Gaard Media is a creative content and media agency based in Katy, Texas.
-                We help businesses, creators, nonprofits, and agencies connect with their
-                audiences through impactful, purpose-driven content.
-              </p>
-            </div>
+          <FadeIn className="mx-auto max-w-3xl text-center">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-red-600">
+              How to Get Started
+            </p>
+            <h2 className="mt-4 font-display text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl lg:text-5xl lg:leading-tight">
+              A simple process, built around <span className="text-red-600">your story</span>.
+            </h2>
+            <p className="mt-6 text-lg leading-relaxed text-gray-500">
+              From the first conversation to final delivery, we keep it collaborative, clear,
+              and focused on results , so you always know what&apos;s happening and why.
+            </p>
+          </FadeIn>
+
+          <StaggerContainer className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-4" staggerDelay={0.08}>
+            {[
+              {
+                num: "01",
+                label: "Discover",
+                desc: "Book a free discovery call. We dig into your goals, audience, and story to see if we're the right fit.",
+                Icon: PhoneIcon,
+              },
+              {
+                num: "02",
+                label: "Strategize",
+                desc: "We craft a creative plan and production roadmap tailored to your brand and the platforms that matter.",
+                Icon: PaletteIcon,
+              },
+              {
+                num: "03",
+                label: "Create",
+                desc: "Our team produces high-quality content end-to-end , scripting, shooting, editing, graphics.",
+                Icon: CameraIcon,
+              },
+              {
+                num: "04",
+                label: "Launch",
+                desc: "We deliver, publish, and help you measure what actually moves the needle on every channel.",
+                Icon: MegaphoneIcon,
+              },
+            ].map((s) => (
+              <StaggerItem key={s.label}>
+                <div className="group relative h-full rounded-2xl border border-gray-100 bg-white p-8 shadow-sm hover:shadow-xl hover:shadow-red-600/10 hover:border-red-200 transition-all duration-300 overflow-hidden">
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-red-50/0 to-rose-50/0 group-hover:from-red-50/60 group-hover:to-rose-50/40 transition-all duration-500" />
+                  <div className="pointer-events-none absolute -top-4 -right-4 font-display text-[88px] font-extrabold leading-none text-gray-50 group-hover:text-red-50 transition-colors duration-300 select-none">
+                    {s.num}
+                  </div>
+                  <div className="relative">
+                    <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-red-50 text-red-600 group-hover:bg-red-600 group-hover:text-white transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-red-600/30">
+                      <s.Icon className="h-5 w-5" />
+                    </div>
+                    <h3 className="mt-6 font-display text-xl font-bold text-gray-900">
+                      {s.label}
+                    </h3>
+                    <p className="mt-3 text-sm text-gray-600 leading-relaxed">
+                      {s.desc}
+                    </p>
+                  </div>
+                </div>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
+
+          <FadeIn delay={0.2} className="mt-14 text-center">
+            <a
+              href="#contact"
+              className="group inline-flex items-center gap-2 rounded-full bg-red-600 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-red-600/20 hover:bg-red-700 hover:scale-[1.02] active:scale-[0.98] transition-all"
+            >
+              Book Your Discovery Call
+              <ArrowRightIcon className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+            </a>
           </FadeIn>
         </div>
       </section>
@@ -1056,7 +1102,7 @@ export default function Home() {
       <section className="py-24 lg:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <ScaleIn>
-            <div className="relative overflow-hidden rounded-3xl bg-gray-900 px-8 py-20 sm:px-16 lg:px-24 text-center noise-bg">
+            <div className="relative overflow-hidden rounded-3xl bg-gray-900 px-8 py-20 sm:px-16 lg:px-20 text-center noise-bg">
               {/* Background elements */}
               <div className="absolute inset-0 bg-gradient-to-br from-red-900/50 via-transparent to-rose-900/50" />
               <motion.div
@@ -1070,7 +1116,61 @@ export default function Home() {
                 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full border border-white/5"
               />
 
+              {/* Background video loop */}
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-luminosity"
+              >
+                <source src="/impact.mp4" type="video/mp4" />
+              </video>
+              <div className="absolute inset-0 bg-gradient-to-b from-gray-900/60 via-gray-900/40 to-gray-900/80" />
+
+              {/* Floating work thumbnails , desktop only */}
+              <div className="pointer-events-none hidden lg:block absolute inset-0">
+                {[
+                  { src: "/work1.avif", top: "8%", left: "3%", rotate: "-8deg", delay: 0 },
+                  { src: "/work3.avif", top: "58%", left: "6%", rotate: "6deg", delay: 0.15 },
+                  { src: "/work5.avif", top: "12%", right: "4%", rotate: "7deg", delay: 0.3 },
+                  { src: "/work4.avif", top: "62%", right: "3%", rotate: "-5deg", delay: 0.45 },
+                ].map((card, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 30, rotate: 0 }}
+                    whileInView={{ opacity: 1, y: 0, rotate: parseFloat(card.rotate) }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 0.8, delay: card.delay, ease: "easeOut" }}
+                    style={{
+                      top: card.top,
+                      left: card.left,
+                      right: card.right,
+                    }}
+                    className="absolute w-36 xl:w-44 aspect-[4/3] rounded-xl overflow-hidden ring-1 ring-white/10 shadow-2xl shadow-black/50"
+                  >
+                    <Image
+                      src={card.src}
+                      alt=""
+                      fill
+                      sizes="176px"
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+                  </motion.div>
+                ))}
+              </div>
+
               <div className="relative z-10">
+                <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 backdrop-blur px-4 py-1.5 mb-6">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75" />
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500" />
+                  </span>
+                  <span className="text-xs font-semibold uppercase tracking-[0.18em] text-red-200">
+                    Now Booking New Projects
+                  </span>
+                </div>
                 <h2 className="font-display text-3xl font-extrabold text-white sm:text-4xl lg:text-5xl">
                   Ready to Bring Your
                   <br />Vision to Life?
@@ -1094,6 +1194,18 @@ export default function Home() {
                     <PhoneIcon className="w-4 h-4" />
                     (407) 255-4074
                   </a>
+                </div>
+
+                {/* Mobile work thumbnail strip */}
+                <div className="mt-12 flex items-center justify-center gap-3 lg:hidden">
+                  {["/work1.avif", "/work3.avif", "/work5.avif", "/work4.avif"].map((src, i) => (
+                    <div
+                      key={i}
+                      className="relative w-16 h-16 rounded-xl overflow-hidden ring-1 ring-white/10 shadow-lg"
+                    >
+                      <Image src={src} alt="" fill sizes="64px" className="object-cover" />
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -1272,8 +1384,8 @@ export default function Home() {
           <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
             {/* Brand */}
             <div className="sm:col-span-2 lg:col-span-1">
-              <a href="#" className="inline-flex items-center justify-center rounded-xl bg-gray-800 px-3 py-1.5 shadow-sm">
-                <Image src="/logo.png" alt="Gaard Media" width={97} height={40} className="h-10 w-auto" />
+              <a href="#" className="inline-flex items-center justify-center">
+                <Image src="/logo.png" alt="Gaard Media" width={97} height={40} className="h-10 w-auto brightness-0" />
               </a>
               <p className="mt-4 text-sm text-gray-500 leading-relaxed max-w-xs">
                 Creative video production and media agency helping brands tell their stories and drive real results.

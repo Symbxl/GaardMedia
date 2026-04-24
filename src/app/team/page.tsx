@@ -192,14 +192,14 @@ export default function TeamPage() {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? "bg-gray-800/95 backdrop-blur-xl border-b border-gray-700/40 shadow-lg shadow-black/20"
-            : "bg-gray-800/85 backdrop-blur-md"
+            ? "bg-white/90 backdrop-blur-xl border-b border-gray-200/60 shadow-sm"
+            : "bg-white/70 backdrop-blur-md"
         }`}
       >
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="flex h-20 items-center justify-between">
             <a href="/" className="relative z-10 inline-flex items-center justify-center">
-              <Image src="/logo.png" alt="Gaard Media" width={117} height={48} className="h-12 w-auto" />
+              <Image src="/logo.png" alt="Gaard Media" width={117} height={48} className="h-12 w-auto brightness-0" />
             </a>
 
             <div className="hidden lg:flex items-center gap-10">
@@ -245,7 +245,7 @@ export default function TeamPage() {
                   <a
                     key={link.href}
                     href={link.href}
-                    className="relative text-[13px] font-medium uppercase tracking-wider transition-colors duration-300 text-gray-300 hover:text-white after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-0 after:bg-red-500 after:transition-all hover:after:w-full"
+                    className="relative text-[13px] font-medium uppercase tracking-wider transition-colors duration-300 text-gray-500 hover:text-gray-900 after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-0 after:bg-red-500 after:transition-all hover:after:w-full"
                   >
                     {link.label}
                   </a>
@@ -262,7 +262,7 @@ export default function TeamPage() {
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 transition-colors text-gray-200"
+              className="lg:hidden p-2 transition-colors text-gray-700"
             >
               {mobileMenuOpen ? <XIcon className="w-6 h-6" /> : <MenuIcon className="w-6 h-6" />}
             </button>
@@ -276,7 +276,7 @@ export default function TeamPage() {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
-              className="lg:hidden overflow-hidden border-t border-gray-700/40 bg-gray-800"
+              className="lg:hidden overflow-hidden border-t border-gray-100 bg-white"
             >
               <div className="px-6 pb-8 pt-6 space-y-1">
                 {navLinks.map((link, i) =>
@@ -286,7 +286,7 @@ export default function TeamPage() {
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: i * 0.05 }}
-                        className="py-3 text-lg font-medium text-gray-500 border-b border-gray-700/40"
+                        className="py-3 text-lg font-medium text-gray-400 border-b border-gray-50"
                       >
                         {link.label}
                       </motion.p>
@@ -298,7 +298,7 @@ export default function TeamPage() {
                           initial={{ opacity: 0, x: -20 }}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: (i + j + 1) * 0.05 }}
-                          className="block py-3 pl-4 text-base font-medium text-gray-200 hover:text-red-400 transition-colors border-b border-gray-700/40"
+                          className="block py-3 pl-4 text-base font-medium text-gray-700 hover:text-red-600 transition-colors border-b border-gray-50"
                         >
                           {item.label}
                         </motion.a>
@@ -312,7 +312,7 @@ export default function TeamPage() {
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: i * 0.05 }}
-                      className="block py-3 text-lg font-medium text-gray-200 hover:text-red-400 transition-colors border-b border-gray-700/40"
+                      className="block py-3 text-lg font-medium text-gray-700 hover:text-red-600 transition-colors border-b border-gray-50"
                     >
                       {link.label}
                     </motion.a>
@@ -508,8 +508,8 @@ export default function TeamPage() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8 py-16">
           <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
             <div className="sm:col-span-2 lg:col-span-1">
-              <a href="/" className="inline-flex items-center justify-center rounded-xl bg-gray-800 px-3 py-1.5 shadow-sm">
-                <Image src="/logo.png" alt="Gaard Media" width={97} height={40} className="h-10 w-auto" />
+              <a href="/" className="inline-flex items-center justify-center">
+                <Image src="/logo.png" alt="Gaard Media" width={97} height={40} className="h-10 w-auto brightness-0" />
               </a>
               <p className="mt-4 text-sm text-gray-500 leading-relaxed max-w-xs">
                 Creative video production and media agency helping brands tell their stories and drive real results.
