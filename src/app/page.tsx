@@ -221,7 +221,7 @@ const services = [
     title: "Social Media Management",
     description: "We help brands grow by taking the guesswork out of social media. From content creation and posting to audience engagement and performance tracking, we manage every aspect of your online presence. Our team builds custom strategies tailored to your brand voice and goals.",
     features: ["Content Creation", "Posting", "Engagement", "Analytics"],
-    image: "/social.webp",
+    image: "/social-media.jpg",
   },
   {
     icon: FilmIcon,
@@ -924,14 +924,16 @@ export default function Home() {
 
                   {/* Optional image */}
                   {"image" in service && service.image && (
-                    <div className="relative w-full overflow-hidden p-2 pb-0">
-                      <Image
-                        src={service.image}
-                        alt={service.title}
-                        width={300}
-                        height={200}
-                        className="w-3/4 h-auto mx-auto rounded-md group-hover:scale-105 transition-transform duration-500"
-                      />
+                    <div className="p-2 pb-0">
+                      <div className="relative w-full aspect-[16/10] overflow-hidden rounded-md bg-gray-100">
+                        <Image
+                          src={service.image}
+                          alt={service.title}
+                          fill
+                          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                          className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      </div>
                     </div>
                   )}
 
