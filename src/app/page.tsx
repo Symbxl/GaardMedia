@@ -969,6 +969,137 @@ export default function Home() {
 
 
       {/* ═══════════════════════════════════════
+          FEATURED CASE STUDY , LASERWELD
+          ═══════════════════════════════════════ */}
+      <section className="py-20 lg:py-28 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-white via-red-50/30 to-white" />
+        <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
+          <FadeIn className="mx-auto max-w-3xl text-center">
+            <div className="inline-flex items-center gap-2 rounded-full border border-red-100 bg-red-50 px-4 py-1.5">
+              <span className="h-1.5 w-1.5 rounded-full bg-red-600" />
+              <span className="text-xs font-semibold uppercase tracking-[0.18em] text-red-700">
+                Featured Case Study
+              </span>
+            </div>
+            <h2 className="mt-6 font-display text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl lg:text-5xl lg:leading-tight">
+              How we helped <span className="text-red-600">Laserweld Inc</span> go from invisible to viral.
+            </h2>
+            <p className="mt-5 text-lg text-gray-500 leading-relaxed">
+              A Texas manufacturer partnered with us in December 2024. Fourteen months later,
+              the numbers speak for themselves.
+            </p>
+          </FadeIn>
+
+          <FadeIn delay={0.15} className="mt-14">
+            <div className="grid lg:grid-cols-2 gap-8 items-stretch">
+              {/* Left , company + services */}
+              <div className="relative rounded-3xl bg-white border border-gray-100 p-8 lg:p-10 shadow-sm">
+                <div className="flex items-center gap-4">
+                  <div className="relative h-16 w-16 rounded-xl overflow-hidden ring-1 ring-gray-100 shadow-md">
+                    <Image
+                      src="/laserweld.jpg"
+                      alt="Laserweld Inc logo"
+                      fill
+                      sizes="64px"
+                      className="object-cover"
+                    />
+                  </div>
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-[0.15em] text-gray-400">The Client</p>
+                    <h3 className="mt-0.5 font-display text-xl font-bold text-gray-900">Laserweld Inc</h3>
+                    <p className="text-sm text-gray-500">Texas manufacturing , 70-acre facility</p>
+                  </div>
+                </div>
+
+                <div className="mt-8 pt-8 border-t border-gray-100">
+                  <p className="text-xs font-semibold uppercase tracking-[0.15em] text-gray-400">What We Did</p>
+                  <div className="mt-4 grid grid-cols-2 gap-3">
+                    {[
+                      "Video Production",
+                      "Scripting",
+                      "Branding",
+                      "Graphics",
+                      "Website Development",
+                      "Social Media Management",
+                    ].map((svc) => (
+                      <div key={svc} className="flex items-center gap-2 text-sm">
+                        <div className="flex-shrink-0 w-5 h-5 rounded-full bg-red-100 flex items-center justify-center">
+                          <svg className="w-3 h-3 text-red-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="20 6 9 17 4 12" />
+                          </svg>
+                        </div>
+                        <span className="text-gray-700 font-medium">{svc}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="mt-8 pt-8 border-t border-gray-100">
+                  <p className="text-xs font-semibold uppercase tracking-[0.15em] text-gray-400">The Results</p>
+                  <div className="mt-4 grid grid-cols-3 gap-4">
+                    {[
+                      { value: "31.74K", label: "Followers" },
+                      { value: "19.29M", label: "Impressions" },
+                      { value: "317K", label: "Interactions" },
+                    ].map((stat) => (
+                      <div key={stat.label}>
+                        <p className="font-display text-2xl lg:text-3xl font-extrabold text-gray-900">{stat.value}</p>
+                        <p className="mt-1 text-xs text-gray-500">{stat.label}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <a
+                  href="/case-study"
+                  className="group mt-8 inline-flex items-center gap-2 rounded-full bg-red-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-red-600/20 hover:bg-red-700 hover:scale-[1.02] active:scale-[0.98] transition-all"
+                >
+                  View Full Case Study
+                  <ArrowRightIcon className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+                </a>
+              </div>
+
+              {/* Right , YouTube channel preview */}
+              <a
+                href="https://www.youtube.com/@LaserWeldTexas"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative overflow-hidden rounded-3xl border border-gray-100 bg-gray-900 shadow-xl shadow-gray-900/10 hover:shadow-2xl hover:shadow-red-600/10 transition-all duration-500"
+              >
+                <div className="relative aspect-[16/10] w-full overflow-hidden">
+                  <Image
+                    src="/laseryt.png"
+                    alt="LaserWeld Texas YouTube channel"
+                    fill
+                    sizes="(min-width: 1024px) 50vw, 100vw"
+                    className="object-cover group-hover:scale-[1.02] transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0" />
+                </div>
+                <div className="relative flex items-center justify-between p-6 border-t border-white/10">
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-red-600">
+                      <svg className="h-5 w-5 text-white" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="text-sm font-bold text-white">LaserWeld Texas</p>
+                      <p className="text-xs text-gray-400">youtube.com/@LaserWeldTexas</p>
+                    </div>
+                  </div>
+                  <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-red-300 group-hover:gap-2.5 transition-all">
+                    Watch
+                    <ArrowRightIcon className="w-3 h-3" />
+                  </span>
+                </div>
+              </a>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════
           HOW TO GET STARTED
           ═══════════════════════════════════════ */}
       <section id="get-started" className="py-24 lg:py-32 relative overflow-hidden">
