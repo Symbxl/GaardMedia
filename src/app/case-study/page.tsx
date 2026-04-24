@@ -112,6 +112,53 @@ function TwitterXIcon({ className }: { className?: string }) {
   );
 }
 
+function ScriptIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+      <polyline points="14 2 14 8 20 8" />
+      <line x1="8" y1="13" x2="16" y2="13" />
+      <line x1="8" y1="17" x2="13" y2="17" />
+    </svg>
+  );
+}
+
+function BrandingIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" />
+      <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" />
+      <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" />
+      <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" />
+      <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z" />
+    </svg>
+  );
+}
+
+function WebsiteIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+      <line x1="2" y1="8" x2="22" y2="8" />
+      <circle cx="5.5" cy="5.5" r=".5" fill="currentColor" />
+      <circle cx="7.5" cy="5.5" r=".5" fill="currentColor" />
+      <circle cx="9.5" cy="5.5" r=".5" fill="currentColor" />
+      <line x1="8" y1="21" x2="16" y2="21" />
+      <line x1="12" y1="17" x2="12" y2="21" />
+    </svg>
+  );
+}
+
+function GraphicsIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+      <circle cx="8.5" cy="8.5" r="1.5" />
+      <polyline points="21 15 16 10 5 21" />
+    </svg>
+  );
+}
+
 /* ════════════════════════════════════════════
    DATA
    ════════════════════════════════════════════ */
@@ -217,105 +264,6 @@ const headlineStats = [
   { label: "Pieces of Content", value: "755", delta: "+545%", sub: "Published in 14 months" },
 ];
 
-const topPosts = [
-  {
-    platform: "Facebook",
-    icon: FacebookIcon,
-    color: "#1877F2",
-    date: "Nov 17, 2025",
-    text: "This one thing has been a major key to helping us be competitive.",
-    impressions: "1.62M",
-    interactions: "25.93K",
-  },
-  {
-    platform: "Facebook",
-    icon: FacebookIcon,
-    color: "#1877F2",
-    date: "Dec 1, 2025",
-    text: "This experiment cut our weld time in half!",
-    impressions: "1.28M",
-    interactions: "20.96K",
-  },
-  {
-    platform: "Facebook",
-    icon: FacebookIcon,
-    color: "#1877F2",
-    date: "Jan 19, 2026",
-    text: "This has reduced our welding times in half!",
-    impressions: "1.02M",
-    interactions: "13.45K",
-  },
-  {
-    platform: "YouTube",
-    icon: YoutubeIcon,
-    color: "#DC2626",
-    date: "Jan 19, 2026",
-    text: "This Weld Gun Uses Two Wires at Once",
-    impressions: "723K",
-    interactions: "7,929",
-  },
-  {
-    platform: "Facebook",
-    icon: FacebookIcon,
-    color: "#1877F2",
-    date: "Oct 30, 2025",
-    text: "How we cut our weld times in half.",
-    impressions: "589K",
-    interactions: "12.19K",
-  },
-  {
-    platform: "YouTube",
-    icon: YoutubeIcon,
-    color: "#DC2626",
-    date: "Sep 18, 2025",
-    text: "The Factory Where Employees Are Their Own Bosses",
-    impressions: "570K",
-    interactions: "18.47K",
-  },
-  {
-    platform: "YouTube",
-    icon: YoutubeIcon,
-    color: "#DC2626",
-    date: "Aug 8, 2025",
-    text: "Texas Factory Taking on China #madeinusa",
-    impressions: "518K",
-    interactions: "4,302",
-  },
-  {
-    platform: "TikTok",
-    icon: TikTokIcon,
-    color: "#111827",
-    date: "May 28, 2025",
-    text: "Production pay has been the key to paying our workers well...",
-    impressions: "428K",
-    interactions: "12.49K",
-  },
-];
-
-const youtubeCountries = [
-  { country: "United States", pct: "59.45%" },
-  { country: "Canada", pct: "6.97%" },
-  { country: "Australia", pct: "5.01%" },
-  { country: "United Kingdom", pct: "4.01%" },
-  { country: "Germany", pct: "2.99%" },
-  { country: "Netherlands", pct: "2.05%" },
-  { country: "South Africa", pct: "1.70%" },
-  { country: "Sweden", pct: "1.50%" },
-  { country: "New Zealand", pct: "1.22%" },
-  { country: "Finland", pct: "1.01%" },
-];
-
-const youtubeTraffic = [
-  { source: "Shorts", pct: "70.95%" },
-  { source: "Browser features", pct: "18.49%" },
-  { source: "Other YouTube features", pct: "4.40%" },
-  { source: "Suggested videos", pct: "2.71%" },
-  { source: "YouTube channels", pct: "1.39%" },
-  { source: "YouTube search", pct: "1.28%" },
-  { source: "Direct or unknown", pct: "0.40%" },
-  { source: "External", pct: "0.23%" },
-];
-
 /* ════════════════════════════════════════════
    PAGE
    ════════════════════════════════════════════ */
@@ -323,7 +271,7 @@ const youtubeTraffic = [
 export default function CaseStudyPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [navDropdownOpen, setNavDropdownOpen] = useState(false);
+  const [navDropdownOpen, setNavDropdownOpen] = useState<string | null>(null);
   const { scrollYProgress } = useScroll();
 
   useEffect(() => {
@@ -360,14 +308,14 @@ export default function CaseStudyPage() {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? "bg-white/90 backdrop-blur-xl border-b border-gray-200/60 shadow-sm"
-            : "bg-white/70 backdrop-blur-md"
+            ? "bg-gray-800/95 backdrop-blur-xl border-b border-gray-700/40 shadow-lg shadow-black/20"
+            : "bg-gray-800/85 backdrop-blur-md"
         }`}
       >
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="flex h-18 items-center justify-between">
+          <div className="flex h-20 items-center justify-between">
             <a href="/" className="relative z-10 inline-flex items-center justify-center">
-              <Image src="/logo.avif" alt="Gaard Media" width={140} height={40} className="h-9 w-auto brightness-0" />
+              <Image src="/logo.png" alt="Gaard Media" width={117} height={48} className="h-12 w-auto" />
             </a>
 
             <div className="hidden lg:flex items-center gap-10">
@@ -376,15 +324,15 @@ export default function CaseStudyPage() {
                   <div
                     key={link.label}
                     className="relative"
-                    onMouseEnter={() => setNavDropdownOpen(true)}
-                    onMouseLeave={() => setNavDropdownOpen(false)}
+                    onMouseEnter={() => setNavDropdownOpen(link.label)}
+                    onMouseLeave={() => setNavDropdownOpen(null)}
                   >
-                    <button className="relative flex items-center gap-1 text-[13px] font-medium uppercase tracking-wider transition-colors duration-300 text-gray-500 hover:text-gray-900">
+                    <button className="relative flex items-center gap-1 text-[13px] font-medium uppercase tracking-wider transition-colors duration-300 text-gray-300 hover:text-white">
                       {link.label}
-                      <ChevronDownIcon className={`w-3.5 h-3.5 transition-transform duration-200 ${navDropdownOpen ? "rotate-180" : ""}`} />
+                      <ChevronDownIcon className={`w-3.5 h-3.5 transition-transform duration-200 ${navDropdownOpen === link.label ? "rotate-180" : ""}`} />
                     </button>
                     <AnimatePresence>
-                      {navDropdownOpen && (
+                      {navDropdownOpen === link.label && (
                         <motion.div
                           initial={{ opacity: 0, y: 8 }}
                           animate={{ opacity: 1, y: 0 }}
@@ -409,7 +357,7 @@ export default function CaseStudyPage() {
                   <a
                     key={link.href}
                     href={link.href}
-                    className="relative text-[13px] font-medium uppercase tracking-wider transition-colors duration-300 text-gray-500 hover:text-gray-900 after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-0 after:bg-red-500 after:transition-all hover:after:w-full"
+                    className="relative text-[13px] font-medium uppercase tracking-wider transition-colors duration-300 text-gray-300 hover:text-white after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-0 after:bg-red-500 after:transition-all hover:after:w-full"
                   >
                     {link.label}
                   </a>
@@ -426,7 +374,7 @@ export default function CaseStudyPage() {
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 transition-colors text-gray-700"
+              className="lg:hidden p-2 transition-colors text-gray-200"
             >
               {mobileMenuOpen ? <XIcon className="w-6 h-6" /> : <MenuIcon className="w-6 h-6" />}
             </button>
@@ -440,13 +388,13 @@ export default function CaseStudyPage() {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
-              className="lg:hidden overflow-hidden border-t border-gray-100 bg-white"
+              className="lg:hidden overflow-hidden border-t border-gray-700/40 bg-gray-800"
             >
               <div className="px-6 pb-8 pt-6 space-y-1">
                 {navLinks.map((link, i) =>
                   link.dropdown ? (
                     <div key={link.label}>
-                      <p className="py-3 text-lg font-medium text-gray-400 border-b border-gray-50">
+                      <p className="py-3 text-lg font-medium text-gray-500 border-b border-gray-700/40">
                         {link.label}
                       </p>
                       {link.dropdown.map((item) => (
@@ -454,7 +402,7 @@ export default function CaseStudyPage() {
                           key={item.href}
                           href={item.href}
                           onClick={() => setMobileMenuOpen(false)}
-                          className="block py-3 pl-4 text-base font-medium text-gray-700 hover:text-red-600 transition-colors border-b border-gray-50"
+                          className="block py-3 pl-4 text-base font-medium text-gray-200 hover:text-red-400 transition-colors border-b border-gray-700/40"
                         >
                           {item.label}
                         </a>
@@ -468,7 +416,7 @@ export default function CaseStudyPage() {
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: i * 0.05 }}
-                      className="block py-3 text-lg font-medium text-gray-700 hover:text-red-600 transition-colors border-b border-gray-50"
+                      className="block py-3 text-lg font-medium text-gray-200 hover:text-red-400 transition-colors border-b border-gray-700/40"
                     >
                       {link.label}
                     </motion.a>
@@ -496,9 +444,23 @@ export default function CaseStudyPage() {
               </span>
             </div>
 
-            <h1 className="mt-6 font-display text-4xl sm:text-5xl lg:text-7xl font-extrabold tracking-tight text-gray-900">
-              Laserweld Inc
-            </h1>
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-5 sm:gap-7">
+              <div className="relative">
+                <div className="absolute -inset-2 rounded-[22px] bg-gradient-to-br from-red-500/30 to-rose-500/20 blur-xl opacity-70" />
+                <div className="relative h-14 w-14 sm:h-20 sm:w-20 lg:h-28 lg:w-28 rounded-2xl overflow-hidden ring-1 ring-white/10 shadow-xl shadow-red-900/20">
+                  <Image
+                    src="/laserweld.jpg"
+                    alt="Laserweld Inc logo"
+                    fill
+                    sizes="(min-width: 1024px) 112px, (min-width: 640px) 80px, 56px"
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+              <h1 className="font-display text-4xl sm:text-5xl lg:text-7xl font-extrabold tracking-tight text-gray-900">
+                Laserweld Inc
+              </h1>
+            </div>
             <p className="mt-4 font-display text-xl sm:text-2xl lg:text-3xl font-bold text-gray-500">
               From <span className="text-red-600">nothing</span> to <span className="text-gray-900">31.74K followers</span>
               <br className="hidden sm:block" />
@@ -655,221 +617,136 @@ export default function CaseStudyPage() {
       </section>
 
       {/* ═══════════════════════════════════════
-          TOP POSTS
+          YOUTUBE CHANNEL SHOWCASE
           ═══════════════════════════════════════ */}
       <section className="pb-20 lg:pb-28 relative">
-        <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
-          <FadeIn className="max-w-3xl">
+        <div className="relative z-10 mx-auto max-w-6xl px-6 lg:px-8">
+          <FadeIn className="max-w-3xl mx-auto text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-red-600">
-              Top Performing Content
+              The Channel
             </p>
             <h2 className="mt-3 font-display text-3xl lg:text-5xl font-extrabold tracking-tight text-gray-900">
-              The posts that broke through.
+              See it live on YouTube.
             </h2>
             <p className="mt-5 text-lg text-gray-600 leading-relaxed">
-              Process-driven storytelling won. The highest-reach post , 1.62M impressions , was
-              a 30-second look at a competitive advantage on the factory floor.
+              12.5K subscribers. 5.31M views. 180 videos , all built from the shop floor.
             </p>
           </FadeIn>
 
-          <StaggerContainer className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3" staggerDelay={0.06}>
-            {topPosts.map((post, i) => {
-              const Icon = post.icon;
-              return (
-                <StaggerItem key={`${post.date}-${i}`}>
-                  <div className="group relative h-full rounded-2xl border border-gray-100 bg-white p-6 shadow-sm hover:shadow-xl hover:shadow-red-600/5 hover:border-red-100 transition-all duration-300">
-                    <div className="flex items-center justify-between">
-                      <div
-                        className="flex items-center gap-2 rounded-full px-3 py-1.5"
-                        style={{ backgroundColor: `${post.color}14`, color: post.color }}
-                      >
-                        <Icon className="h-3.5 w-3.5" />
-                        <span className="text-[11px] font-semibold">
-                          {post.platform}
-                        </span>
-                      </div>
-                      <span className="text-xs text-gray-400">{post.date}</span>
-                    </div>
-
-                    <p className="mt-5 text-[15px] font-medium text-gray-900 leading-snug min-h-[3em]">
-                      &ldquo;{post.text}&rdquo;
-                    </p>
-
-                    <div className="mt-6 grid grid-cols-2 gap-3 pt-5 border-t border-gray-100">
-                      <div>
-                        <p className="text-[10px] uppercase tracking-wider text-gray-400">
-                          Impressions
-                        </p>
-                        <p className="mt-1 font-display text-xl font-extrabold text-gray-900">
-                          {post.impressions}
-                        </p>
-                      </div>
-                      <div>
-                        <p className="text-[10px] uppercase tracking-wider text-gray-400">
-                          Interactions
-                        </p>
-                        <p className="mt-1 font-display text-xl font-extrabold text-gray-900">
-                          {post.interactions}
-                        </p>
-                      </div>
-                    </div>
+          <FadeIn delay={0.15} className="mt-12">
+            <a
+              href="https://www.youtube.com/@LaserWeldTexas"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative block overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-xl shadow-gray-900/5 hover:shadow-2xl hover:shadow-red-600/10 hover:border-red-100 transition-all duration-500"
+            >
+              <div className="relative aspect-[16/9] w-full overflow-hidden bg-gray-50">
+                <Image
+                  src="/laseryt.png"
+                  alt="LaserWeld Texas YouTube channel"
+                  fill
+                  sizes="(min-width: 1024px) 1024px, 100vw"
+                  className="object-cover group-hover:scale-[1.02] transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <div className="flex items-center gap-3 rounded-full bg-white px-6 py-3 shadow-2xl">
+                    <YoutubeIcon className="h-5 w-5 text-red-600" />
+                    <span className="text-sm font-semibold text-gray-900">Visit the channel</span>
+                    <ArrowRightIcon className="h-4 w-4 text-gray-900 group-hover:translate-x-0.5 transition-transform" />
                   </div>
-                </StaggerItem>
-              );
-            })}
+                </div>
+              </div>
+              <div className="flex flex-wrap items-center justify-between gap-4 p-6 lg:p-8 border-t border-gray-100">
+                <div className="flex items-center gap-4">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-red-50">
+                    <YoutubeIcon className="h-6 w-6 text-red-600" />
+                  </div>
+                  <div>
+                    <p className="font-display text-lg font-bold text-gray-900">LaserWeld Texas</p>
+                    <p className="text-sm text-gray-500">youtube.com/@LaserWeldTexas</p>
+                  </div>
+                </div>
+                <span className="inline-flex items-center gap-2 text-sm font-semibold text-red-600 group-hover:gap-3 transition-all">
+                  Watch on YouTube
+                  <ArrowRightIcon className="h-3.5 w-3.5" />
+                </span>
+              </div>
+            </a>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════
+          FULL SUITE OF SERVICES
+          ═══════════════════════════════════════ */}
+      <section className="pb-20 lg:pb-28 relative">
+        <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
+          <FadeIn className="max-w-3xl mx-auto text-center">
+            <div className="inline-flex items-center gap-2 rounded-full border border-red-100 bg-red-50 px-4 py-1.5">
+              <span className="h-1.5 w-1.5 rounded-full bg-red-600" />
+              <span className="text-xs font-semibold uppercase tracking-[0.18em] text-red-700">
+                Full Service Partnership
+              </span>
+            </div>
+            <h2 className="mt-6 font-display text-3xl lg:text-5xl font-extrabold tracking-tight text-gray-900">
+              Every piece of the puzzle, <span className="text-red-600">built in-house</span>.
+            </h2>
+            <p className="mt-5 text-lg text-gray-600 leading-relaxed">
+              For Laserweld, we didn&apos;t just produce video , we delivered a full suite of services:
+              scripting, branding, website development, and graphics. One partner, one cohesive
+              brand, one system working end-to-end to help them succeed.
+            </p>
+          </FadeIn>
+
+          <StaggerContainer className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-4" staggerDelay={0.08}>
+            {[
+              {
+                num: "01",
+                label: "Scripting",
+                desc: "Story arcs built around real process wins , written to hook, hold, and convert.",
+                Icon: ScriptIcon,
+              },
+              {
+                num: "02",
+                label: "Branding",
+                desc: "A cohesive identity , logo, palette, voice , carried across every platform.",
+                Icon: BrandingIcon,
+              },
+              {
+                num: "03",
+                label: "Website Development",
+                desc: "A high-converting home base that turns attention into inbound leads.",
+                Icon: WebsiteIcon,
+              },
+              {
+                num: "04",
+                label: "Graphics",
+                desc: "Thumbnails, covers, and on-screen assets engineered for clicks and retention.",
+                Icon: GraphicsIcon,
+              },
+            ].map((s) => (
+              <StaggerItem key={s.label}>
+                <div className="group relative h-full rounded-2xl border border-gray-100 bg-white p-8 shadow-sm hover:shadow-xl hover:shadow-red-600/10 hover:border-red-200 transition-all duration-300 overflow-hidden">
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-red-50/0 to-rose-50/0 group-hover:from-red-50/60 group-hover:to-rose-50/40 transition-all duration-500" />
+                  <div className="pointer-events-none absolute -top-4 -right-4 font-display text-[88px] font-extrabold leading-none text-gray-50 group-hover:text-red-50 transition-colors duration-300 select-none">
+                    {s.num}
+                  </div>
+                  <div className="relative">
+                    <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-red-50 text-red-600 group-hover:bg-red-600 group-hover:text-white transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-red-600/30">
+                      <s.Icon className="h-5 w-5" />
+                    </div>
+                    <h3 className="mt-6 font-display text-xl font-bold text-gray-900">
+                      {s.label}
+                    </h3>
+                    <p className="mt-3 text-sm text-gray-600 leading-relaxed">
+                      {s.desc}
+                    </p>
+                  </div>
+                </div>
+              </StaggerItem>
+            ))}
           </StaggerContainer>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════
-          YOUTUBE DEEP DIVE
-          ═══════════════════════════════════════ */}
-      <section className="pb-20 lg:pb-28 relative">
-        <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
-          <FadeIn className="max-w-3xl">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-red-600">
-              YouTube Deep Dive
-            </p>
-            <h2 className="mt-3 font-display text-3xl lg:text-5xl font-extrabold tracking-tight text-gray-900">
-              12.5K subscribers. 5.31M views. 180 videos.
-            </h2>
-            <p className="mt-5 text-lg text-gray-600 leading-relaxed">
-              YouTube became the audience flywheel. Shorts drove 70.95% of discovery, and
-              international reach grew organically , 40% of viewers now come from outside the US.
-            </p>
-          </FadeIn>
-
-          <div className="mt-14 grid gap-6 lg:grid-cols-2">
-            <FadeIn>
-              <div className="h-full rounded-2xl border border-gray-100 bg-white p-8 shadow-sm">
-                <h3 className="font-display text-xl font-bold text-gray-900">
-                  Top 10 Viewer Countries
-                </h3>
-                <p className="mt-1 text-sm text-gray-500">LaserWeld Texas , YouTube</p>
-                <div className="mt-6 space-y-3">
-                  {youtubeCountries.map((c) => {
-                    const pct = parseFloat(c.pct);
-                    return (
-                      <div key={c.country}>
-                        <div className="flex items-center justify-between text-sm">
-                          <span className="font-medium text-gray-700">{c.country}</span>
-                          <span className="font-semibold text-gray-900">{c.pct}</span>
-                        </div>
-                        <div className="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-gray-100">
-                          <motion.div
-                            initial={{ width: 0 }}
-                            whileInView={{ width: `${Math.min((pct / 60) * 100, 100)}%` }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 1.2, ease: "easeOut" }}
-                            className="h-full rounded-full bg-red-600"
-                          />
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            </FadeIn>
-
-            <FadeIn delay={0.15}>
-              <div className="h-full rounded-2xl border border-gray-100 bg-white p-8 shadow-sm">
-                <h3 className="font-display text-xl font-bold text-gray-900">
-                  Traffic Sources
-                </h3>
-                <p className="mt-1 text-sm text-gray-500">How viewers found the channel</p>
-                <div className="mt-6 space-y-3">
-                  {youtubeTraffic.map((t) => {
-                    const pct = parseFloat(t.pct);
-                    return (
-                      <div key={t.source}>
-                        <div className="flex items-center justify-between text-sm">
-                          <span className="font-medium text-gray-700">{t.source}</span>
-                          <span className="font-semibold text-gray-900">{t.pct}</span>
-                        </div>
-                        <div className="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-gray-100">
-                          <motion.div
-                            initial={{ width: 0 }}
-                            whileInView={{ width: `${Math.min((pct / 75) * 100, 100)}%` }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 1.2, ease: "easeOut" }}
-                            className="h-full rounded-full bg-gray-900"
-                          />
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            </FadeIn>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════
-          AUDIENCE DEMOGRAPHICS
-          ═══════════════════════════════════════ */}
-      <section className="pb-20 lg:pb-28 relative">
-        <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
-          <FadeIn className="max-w-3xl">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-red-600">
-              Audience
-            </p>
-            <h2 className="mt-3 font-display text-3xl lg:text-5xl font-extrabold tracking-tight text-gray-900">
-              Reaching the right people.
-            </h2>
-            <p className="mt-5 text-lg text-gray-600 leading-relaxed">
-              Decision-makers in manufacturing: predominantly male, 25&ndash;54, concentrated
-              across the US with strong spillover into English-speaking and European markets.
-            </p>
-          </FadeIn>
-
-          <div className="mt-14 grid gap-6 lg:grid-cols-3">
-            <FadeIn>
-              <div className="h-full rounded-2xl border border-gray-100 bg-white p-8 shadow-sm">
-                <h3 className="text-xs font-semibold uppercase tracking-[0.15em] text-gray-500">
-                  YouTube Gender
-                </h3>
-                <div className="mt-6 space-y-4">
-                  <DemoBar label="Male" value={95.95} color="#DC2626" />
-                  <DemoBar label="Female" value={3.24} color="#1877F2" />
-                  <DemoBar label="Unknown" value={0.81} color="#9CA3AF" />
-                </div>
-              </div>
-            </FadeIn>
-
-            <FadeIn delay={0.1}>
-              <div className="h-full rounded-2xl border border-gray-100 bg-white p-8 shadow-sm">
-                <h3 className="text-xs font-semibold uppercase tracking-[0.15em] text-gray-500">
-                  Instagram Age Range
-                </h3>
-                <div className="mt-6 space-y-4">
-                  <DemoBar label="25 , 34" value={37.5} color="#E1306C" />
-                  <DemoBar label="35 , 44" value={31.5} color="#E1306C" />
-                  <DemoBar label="45 , 54" value={13.0} color="#E1306C" />
-                  <DemoBar label="18 , 24" value={8.0} color="#E1306C" />
-                  <DemoBar label="55 , 64" value={6.5} color="#E1306C" />
-                </div>
-              </div>
-            </FadeIn>
-
-            <FadeIn delay={0.2}>
-              <div className="h-full rounded-2xl border border-gray-100 bg-white p-8 shadow-sm">
-                <h3 className="text-xs font-semibold uppercase tracking-[0.15em] text-gray-500">
-                  TikTok Top Regions
-                </h3>
-                <div className="mt-6 space-y-4">
-                  <DemoBar label="United States" value={65.26} color="#111827" />
-                  <DemoBar label="United Kingdom" value={2.7} color="#111827" />
-                  <DemoBar label="Canada" value={1.28} color="#111827" />
-                  <DemoBar label="Ireland" value={1.09} color="#111827" />
-                  <DemoBar label="Australia" value={0.69} color="#111827" />
-                </div>
-                <p className="mt-6 text-xs text-gray-400">
-                  90% male audience , ideal for B2B manufacturing.
-                </p>
-              </div>
-            </FadeIn>
-          </div>
         </div>
       </section>
 
@@ -949,8 +826,8 @@ export default function CaseStudyPage() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8 py-16">
           <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
             <div className="sm:col-span-2 lg:col-span-1">
-              <a href="/" className="inline-flex items-center justify-center">
-                <Image src="/logo.avif" alt="Gaard Media" width={120} height={34} className="h-8 w-auto brightness-0" />
+              <a href="/" className="inline-flex items-center justify-center rounded-xl bg-gray-800 px-3 py-1.5 shadow-sm">
+                <Image src="/logo.png" alt="Gaard Media" width={97} height={40} className="h-10 w-auto" />
               </a>
               <p className="mt-4 text-sm text-gray-500 leading-relaxed max-w-xs">
                 Creative video production and media agency helping brands tell their stories and drive real results.
@@ -1084,23 +961,3 @@ function BigStat({
   );
 }
 
-function DemoBar({ label, value, color }: { label: string; value: number; color: string }) {
-  return (
-    <div>
-      <div className="flex items-center justify-between text-sm">
-        <span className="font-medium text-gray-700">{label}</span>
-        <span className="font-semibold text-gray-900">{value}%</span>
-      </div>
-      <div className="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-gray-100">
-        <motion.div
-          initial={{ width: 0 }}
-          whileInView={{ width: `${Math.min(value, 100)}%` }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
-          className="h-full rounded-full"
-          style={{ backgroundColor: color }}
-        />
-      </div>
-    </div>
-  );
-}

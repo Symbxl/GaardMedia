@@ -88,14 +88,6 @@ function ChevronDownIcon({ className }: { className?: string }) {
   );
 }
 
-function ArrowDownIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-      <line x1="12" y1="5" x2="12" y2="19" /><polyline points="19 12 12 19 5 12" />
-    </svg>
-  );
-}
-
 function MenuIcon({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
@@ -425,42 +417,13 @@ export default function Home() {
   const [scrolled, setScrolled] = useState(false);
   const [navDropdownOpen, setNavDropdownOpen] = useState<string | null>(null);
   const [wordIndex, setWordIndex] = useState(0);
-  const [portfolioIndex, setPortfolioIndex] = useState(0);
   const [aboutWordIndex, setAboutWordIndex] = useState(0);
-  const [videoMuted, setVideoMuted] = useState(true);
   const [impactMuted, setImpactMuted] = useState(false);
   const [impactPlaying, setImpactPlaying] = useState(false);
   const impactVideoRef = useRef<HTMLVideoElement>(null);
   const impactSectionRef = useRef<HTMLDivElement>(null);
   const aboutWords = ["Grow", "Connect", "Engage"];
 
-  const portfolioVideos = [
-    { src: "https://www.youtube.com/embed/UcIVwZA9AT8", title: "Highlight Reel", client: "Featured Work", type: "youtube" as const },
-    { src: "https://www.youtube.com/embed/I00aY82Njuc", title: "Brand Showreel", client: "Gaard Media", type: "youtube" as const },
-    { src: "https://www.youtube.com/embed/-B1ZyUDu8fM", title: "Client Campaign", client: "Featured Work", type: "youtube" as const },
-    { src: "https://www.youtube.com/embed/BZmPLRlI4ls", title: "Commercial Spot", client: "Commercial", type: "youtube" as const },
-    { src: "https://player.vimeo.com/video/749228649", title: "Creative Reel", client: "Vimeo Collection", type: "vimeo" as const },
-    { src: "https://www.youtube.com/embed/fbup0aZCImc", title: "Video Production", client: "Featured Work", type: "youtube" as const },
-    { src: "https://player.vimeo.com/video/790227572", title: "Documentary", client: "Vimeo Collection", type: "vimeo" as const },
-    { src: "https://player.vimeo.com/video/711734105", title: "Brand Story", client: "Vimeo Collection", type: "vimeo" as const },
-    { src: "https://player.vimeo.com/video/663808028", title: "Event Coverage", client: "Vimeo Collection", type: "vimeo" as const },
-    { src: "https://player.vimeo.com/video/599210543", title: "Cinematic Work", client: "Vimeo Collection", type: "vimeo" as const },
-    { src: "https://player.vimeo.com/video/753030853", title: "Aerial Footage", client: "Vimeo Collection", type: "vimeo" as const },
-    { src: "https://player.vimeo.com/video/666566554", title: "Promo Video", client: "Vimeo Collection", type: "vimeo" as const },
-    { src: "https://player.vimeo.com/video/690692375", title: "Social Content", client: "Vimeo Collection", type: "vimeo" as const },
-  ];
-
-  function getVideoSrc(video: typeof portfolioVideos[0], muted: boolean) {
-    if (video.type === "youtube") {
-      const id = video.src.split("/embed/")[1];
-      return `${video.src}?autoplay=1&mute=${muted ? 1 : 0}&loop=1&playlist=${id}&controls=0&showinfo=0&rel=0&vq=hd1080&hd=1`;
-    }
-    // Vimeo: background=1 forces mute, so when unmuted we remove background mode and show controls
-    if (muted) {
-      return `${video.src}?autoplay=1&muted=1&loop=1&background=1&quality=1080p`;
-    }
-    return `${video.src}?autoplay=1&muted=0&loop=1&quality=1080p`;
-  }
   const rotatingWords = ["Brands", "Non-Profits", "Businesses", "Creators"];
   const { scrollYProgress } = useScroll();
   const heroOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
@@ -549,14 +512,14 @@ export default function Home() {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? "bg-white/90 backdrop-blur-xl border-b border-gray-200/60 shadow-sm"
-            : "bg-white/70 backdrop-blur-md"
+            ? "bg-gray-800/95 backdrop-blur-xl border-b border-gray-700/40 shadow-lg shadow-black/20"
+            : "bg-gray-800/85 backdrop-blur-md"
         }`}
       >
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="flex h-18 items-center justify-between">
+          <div className="flex h-20 items-center justify-between">
             <a href="#" className="relative z-10 inline-flex items-center justify-center">
-              <Image src="/logo.avif" alt="Gaard Media" width={140} height={40} className="h-9 w-auto brightness-0" />
+              <Image src="/logo.png" alt="Gaard Media" width={117} height={48} className="h-12 w-auto" />
             </a>
 
             <div className="hidden lg:flex items-center gap-10">
@@ -568,7 +531,7 @@ export default function Home() {
                     onMouseEnter={() => setNavDropdownOpen(link.label)}
                     onMouseLeave={() => setNavDropdownOpen(null)}
                   >
-                    <button className="relative flex items-center gap-1 text-[13px] font-medium uppercase tracking-wider transition-colors duration-300 text-gray-500 hover:text-gray-900">
+                    <button className="relative flex items-center gap-1 text-[13px] font-medium uppercase tracking-wider transition-colors duration-300 text-gray-300 hover:text-white">
                       {link.label}
                       <ChevronDownIcon className={`w-3.5 h-3.5 transition-transform duration-200 ${navDropdownOpen === link.label ? "rotate-180" : ""}`} />
                     </button>
@@ -598,7 +561,7 @@ export default function Home() {
                   <a
                     key={link.href}
                     href={link.href}
-                    className="relative text-[13px] font-medium uppercase tracking-wider transition-colors duration-300 text-gray-500 hover:text-gray-900 after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-0 after:bg-red-500 after:transition-all hover:after:w-full"
+                    className="relative text-[13px] font-medium uppercase tracking-wider transition-colors duration-300 text-gray-300 hover:text-white after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-0 after:bg-red-500 after:transition-all hover:after:w-full"
                   >
                     {link.label}
                   </a>
@@ -615,7 +578,7 @@ export default function Home() {
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 transition-colors text-gray-700"
+              className="lg:hidden p-2 transition-colors text-gray-200"
             >
               {mobileMenuOpen ? <XIcon className="w-6 h-6" /> : <MenuIcon className="w-6 h-6" />}
             </button>
@@ -629,7 +592,7 @@ export default function Home() {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
-              className="lg:hidden overflow-hidden border-t border-gray-100 bg-white"
+              className="lg:hidden overflow-hidden border-t border-gray-700/40 bg-gray-800"
             >
               <div className="px-6 pb-8 pt-6 space-y-1">
                 {navLinks.map((link, i) =>
@@ -639,7 +602,7 @@ export default function Home() {
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: i * 0.05 }}
-                        className="py-3 text-lg font-medium text-gray-400 border-b border-gray-50"
+                        className="py-3 text-lg font-medium text-gray-500 border-b border-gray-700/40"
                       >
                         {link.label}
                       </motion.p>
@@ -651,7 +614,7 @@ export default function Home() {
                           initial={{ opacity: 0, x: -20 }}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: (i + j + 1) * 0.05 }}
-                          className="block py-3 pl-4 text-base font-medium text-gray-700 hover:text-red-600 transition-colors border-b border-gray-50"
+                          className="block py-3 pl-4 text-base font-medium text-gray-200 hover:text-red-400 transition-colors border-b border-gray-700/40"
                         >
                           {item.label}
                         </motion.a>
@@ -665,7 +628,7 @@ export default function Home() {
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: i * 0.05 }}
-                      className="block py-3 text-lg font-medium text-gray-700 hover:text-red-600 transition-colors border-b border-gray-50"
+                      className="block py-3 text-lg font-medium text-gray-200 hover:text-red-400 transition-colors border-b border-gray-700/40"
                     >
                       {link.label}
                     </motion.a>
@@ -1033,108 +996,7 @@ export default function Home() {
                 We help businesses, creators, nonprofits, and agencies connect with their
                 audiences through impactful, purpose-driven content.
               </p>
-
-              <div className="mt-8">
-                <span className="inline-flex items-center gap-2 text-sm font-semibold text-red-600">
-                  Recent projects
-                  <ArrowDownIcon className="w-4 h-4 animate-bounce" />
-                </span>
-              </div>
             </div>
-          </FadeIn>
-
-          {/* Video carousel below */}
-          <FadeIn className="mt-14">
-              <div className="relative">
-                {/* Video showcase card */}
-                <div className="relative rounded-3xl overflow-hidden bg-gray-900 shadow-2xl">
-                  {/* Video Embed */}
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={`${portfolioIndex}-${videoMuted}`}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.4 }}
-                      className="aspect-[4/3]"
-                    >
-                      <iframe
-                        src={getVideoSrc(portfolioVideos[portfolioIndex], videoMuted)}
-                        className="w-full h-full"
-                        allow="autoplay; fullscreen; picture-in-picture"
-                        allowFullScreen
-                        frameBorder="0"
-                      />
-                    </motion.div>
-                  </AnimatePresence>
-
-                  {/* Overlay gradient at bottom */}
-                  <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/70 to-transparent pointer-events-none" />
-
-                  {/* Sound toggle button */}
-                  <button
-                    onClick={() => setVideoMuted((prev) => !prev)}
-                    className="absolute top-5 left-5 z-10 w-11 h-11 rounded-full bg-white shadow-lg flex items-center justify-center text-red-600 hover:scale-110 transition-all duration-200"
-                    title={videoMuted ? "Unmute" : "Mute"}
-                  >
-                    {videoMuted ? (
-                      <SpeakerMuteIcon className="w-5 h-5" />
-                    ) : (
-                      <SpeakerIcon className="w-5 h-5" />
-                    )}
-                  </button>
-
-                  {/* Video info + navigation */}
-                  <div className="absolute bottom-0 left-0 right-0 p-6 z-10">
-                    <div className="flex items-end justify-between">
-                      <div>
-                        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-red-300">
-                          {portfolioVideos[portfolioIndex].client}
-                        </p>
-                        <h3 className="mt-1 font-display text-xl font-bold text-white">
-                          {portfolioVideos[portfolioIndex].title}
-                        </h3>
-                      </div>
-
-                      {/* Nav arrows */}
-                      <div className="flex items-center gap-2">
-                        <button
-                          onClick={() => setPortfolioIndex((prev) => (prev - 1 + portfolioVideos.length) % portfolioVideos.length)}
-                          className="w-10 h-10 rounded-full bg-white shadow-lg flex items-center justify-center text-red-600 hover:scale-110 transition-all"
-                        >
-                          <ArrowRightIcon className="w-4 h-4 rotate-180" />
-                        </button>
-                        <button
-                          onClick={() => setPortfolioIndex((prev) => (prev + 1) % portfolioVideos.length)}
-                          className="w-10 h-10 rounded-full bg-white shadow-lg flex items-center justify-center text-red-600 hover:scale-110 transition-all"
-                        >
-                          <ArrowRightIcon className="w-4 h-4" />
-                        </button>
-                      </div>
-                    </div>
-
-                    {/* Progress dots */}
-                    <div className="mt-4 flex gap-2">
-                      {portfolioVideos.map((_, i) => (
-                        <button
-                          key={i}
-                          onClick={() => setPortfolioIndex(i)}
-                          className={`h-1 rounded-full transition-all duration-300 ${
-                            i === portfolioIndex
-                              ? "w-8 bg-red-500"
-                              : "w-4 bg-white/30 hover:bg-white/50"
-                          }`}
-                        />
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Video count badge */}
-                  <div className="absolute top-5 right-5 z-10 rounded-full bg-white shadow-lg px-5 py-2.5 text-base font-bold text-red-600">
-                    {portfolioIndex + 1} / {portfolioVideos.length}
-                  </div>
-                </div>
-              </div>
           </FadeIn>
         </div>
       </section>
@@ -1410,8 +1272,8 @@ export default function Home() {
           <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
             {/* Brand */}
             <div className="sm:col-span-2 lg:col-span-1">
-              <a href="#" className="inline-flex items-center justify-center">
-                <Image src="/logo.avif" alt="Gaard Media" width={120} height={34} className="h-8 w-auto brightness-0" />
+              <a href="#" className="inline-flex items-center justify-center rounded-xl bg-gray-800 px-3 py-1.5 shadow-sm">
+                <Image src="/logo.png" alt="Gaard Media" width={97} height={40} className="h-10 w-auto" />
               </a>
               <p className="mt-4 text-sm text-gray-500 leading-relaxed max-w-xs">
                 Creative video production and media agency helping brands tell their stories and drive real results.
