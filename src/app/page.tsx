@@ -72,6 +72,40 @@ function CameraIcon({ className }: { className?: string }) {
   );
 }
 
+function WebsiteIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+      <line x1="2" y1="8" x2="22" y2="8" />
+      <circle cx="5.5" cy="5.5" r=".5" fill="currentColor" />
+      <circle cx="7.5" cy="5.5" r=".5" fill="currentColor" />
+      <circle cx="9.5" cy="5.5" r=".5" fill="currentColor" />
+      <line x1="8" y1="21" x2="16" y2="21" />
+      <line x1="12" y1="17" x2="12" y2="21" />
+    </svg>
+  );
+}
+
+function BrandingIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 2 L2 7 L2 17 L12 22 L22 17 L22 7 Z" />
+      <path d="M2 7 L12 12 L22 7" />
+      <line x1="12" y1="22" x2="12" y2="12" />
+    </svg>
+  );
+}
+
+function GraphicsIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+      <circle cx="8.5" cy="8.5" r="1.5" />
+      <polyline points="21 15 16 10 5 21" />
+    </svg>
+  );
+}
+
 function ArrowRightIcon({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
@@ -257,6 +291,27 @@ const services = [
     description: "Post-Production is a crucial part of any video production. We give our clients full control over their projects to mold their vision to life. Our studio is equipped with the latest professional editing software, industry-standard sound monitors, and custom-built computer systems made for post-production.",
     features: ["Video Editing", "Color Grading", "Sound Design", "Final Delivery"],
     image: "/post.avif",
+  },
+  {
+    icon: WebsiteIcon,
+    title: "Website Development",
+    description: "Your website is your digital storefront , we build fast, beautiful, conversion-focused sites that turn visitors into customers. From landing pages to full brand experiences, we design, develop, and launch websites tailored to your goals.",
+    features: ["Custom Design", "Responsive", "SEO Ready", "Conversion Focused"],
+    image: "/web-dev.jpg",
+  },
+  {
+    icon: BrandingIcon,
+    title: "Branding & Identity",
+    description: "A great brand is more than a logo , it's how you make people feel. We craft cohesive brand identities, from logos and palettes to voice and guidelines, so every touchpoint feels unmistakably you.",
+    features: ["Logo Design", "Brand Guidelines", "Color & Type", "Voice"],
+    image: "/branding.jpg",
+  },
+  {
+    icon: GraphicsIcon,
+    title: "Graphic Design",
+    description: "From thumbnails and social covers to print collateral and on-screen graphics, our design team creates visuals engineered to stop the scroll and stay on-brand across every platform.",
+    features: ["Thumbnails", "Social Assets", "Print", "Motion Graphics"],
+    image: "/graphics.jpg",
   },
 ];
 
@@ -899,61 +954,62 @@ export default function Home() {
       {/* ═══════════════════════════════════════
           SERVICES
           ═══════════════════════════════════════ */}
-      <section id="services" className="py-16 lg:py-20 relative">
+      <section id="services" className="py-20 lg:py-28 relative">
         <div className="absolute inset-0 bg-gradient-to-b from-white via-gray-50/80 to-white" />
 
         <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
-          <FadeIn className="mx-auto max-w-2xl text-center">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-red-600">
-              What We Do
-            </p>
-            <h2 className="mt-4 font-display text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl lg:text-5xl">
-              Services Built to <br className="hidden sm:block" />Elevate Your Brand
+          <FadeIn className="mx-auto max-w-3xl text-center">
+            <div className="inline-flex items-center gap-2 rounded-full border border-red-100 bg-red-50 px-4 py-1.5">
+              <span className="h-1.5 w-1.5 rounded-full bg-red-600" />
+              <span className="text-xs font-semibold uppercase tracking-[0.18em] text-red-700">
+                What We Do
+              </span>
+            </div>
+            <h2 className="mt-6 font-display text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl lg:text-5xl lg:leading-tight">
+              Services built to <span className="text-red-600">elevate your brand</span>.
             </h2>
             <p className="mt-5 text-lg text-gray-500 leading-relaxed">
-              A full suite of creative services tailored for businesses, creators, and agencies.
+              A full suite of creative services , from strategy to launch , tailored for
+              businesses, creators, and agencies.
             </p>
           </FadeIn>
 
-          <StaggerContainer className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" staggerDelay={0.1}>
+          <StaggerContainer className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3" staggerDelay={0.08}>
             {services.map((service) => (
               <StaggerItem key={service.title}>
-                <div className="group relative h-full rounded-xl bg-white border border-gray-100 hover:border-red-200/60 shadow-sm hover:shadow-lg hover:shadow-red-600/5 transition-all duration-500 cursor-default overflow-hidden">
-                  {/* Hover gradient */}
-                  <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-red-50/0 to-rose-50/0 group-hover:from-red-50/50 group-hover:to-rose-50/30 transition-all duration-500" />
-
-                  {/* Optional image */}
+                <div className="group relative h-full rounded-2xl bg-white border border-gray-100 hover:border-red-200 shadow-sm hover:shadow-xl hover:shadow-red-600/10 transition-all duration-500 cursor-default overflow-hidden flex flex-col">
+                  {/* Image with overlaid icon */}
                   {"image" in service && service.image && (
-                    <div className="p-2 pb-0">
-                      <div className="relative w-full aspect-[16/10] overflow-hidden rounded-md bg-gray-100">
-                        <Image
-                          src={service.image}
-                          alt={service.title}
-                          fill
-                          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                          className="object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
+                    <div className="relative w-full aspect-[16/10] overflow-hidden bg-gray-100">
+                      <Image
+                        src={service.image}
+                        alt={service.title}
+                        fill
+                        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                        className="object-cover group-hover:scale-105 transition-transform duration-700"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      <div className="absolute top-4 left-4">
+                        <div className="inline-flex items-center justify-center w-11 h-11 rounded-xl bg-white/95 backdrop-blur text-red-600 shadow-lg shadow-black/10 group-hover:bg-red-600 group-hover:text-white transition-all duration-300 group-hover:scale-110">
+                          <service.icon className="w-5 h-5" />
+                        </div>
                       </div>
                     </div>
                   )}
 
-                  <div className="relative z-10 p-4">
-                    <div className="inline-flex items-center justify-center w-8 h-8 rounded-md bg-gray-100 text-gray-600 group-hover:bg-red-600 group-hover:text-white transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-red-600/25">
-                      <service.icon className="w-3.5 h-3.5" />
-                    </div>
-
-                    <h3 className="mt-2 font-display text-base font-bold text-gray-900">
+                  <div className="relative p-6 flex flex-col flex-1">
+                    <h3 className="font-display text-lg font-bold text-gray-900 group-hover:text-red-600 transition-colors duration-300">
                       {service.title}
                     </h3>
-                    <p className="mt-1 text-sm leading-relaxed text-gray-500 line-clamp-2">
+                    <p className="mt-2 text-sm leading-relaxed text-gray-500 line-clamp-3">
                       {service.description}
                     </p>
 
-                    <div className="mt-2.5 flex flex-wrap gap-1">
+                    <div className="mt-5 pt-5 border-t border-gray-100 flex flex-wrap gap-1.5">
                       {service.features.map((f) => (
                         <span
                           key={f}
-                          className="inline-flex items-center rounded-full bg-gray-50 px-2.5 py-0.5 text-xs font-medium text-gray-500 group-hover:bg-red-50 group-hover:text-red-700 transition-colors duration-300"
+                          className="inline-flex items-center rounded-full bg-gray-50 px-2.5 py-1 text-[11px] font-semibold tracking-wide text-gray-600 group-hover:bg-red-50 group-hover:text-red-700 transition-colors duration-300"
                         >
                           {f}
                         </span>
@@ -1059,41 +1115,68 @@ export default function Home() {
                 </a>
               </div>
 
-              {/* Right , YouTube channel preview */}
-              <a
-                href="https://www.youtube.com/@LaserWeldTexas"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group relative overflow-hidden rounded-3xl border border-gray-100 bg-gray-900 shadow-xl shadow-gray-900/10 hover:shadow-2xl hover:shadow-red-600/10 transition-all duration-500"
-              >
-                <div className="relative aspect-[16/10] w-full overflow-hidden">
-                  <Image
-                    src="/laseryt.png"
-                    alt="LaserWeld Texas YouTube channel"
-                    fill
-                    sizes="(min-width: 1024px) 50vw, 100vw"
-                    className="object-cover group-hover:scale-[1.02] transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0" />
-                </div>
-                <div className="relative flex items-center justify-between p-6 border-t border-white/10">
+              {/* Right , YouTube + website links */}
+              <div className="flex flex-col gap-4">
+                <a
+                  href="https://www.youtube.com/@LaserWeldTexas"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative overflow-hidden rounded-3xl border border-gray-100 bg-gray-900 shadow-xl shadow-gray-900/10 hover:shadow-2xl hover:shadow-red-600/10 transition-all duration-500 flex-1 flex flex-col"
+                >
+                  <div className="relative aspect-[16/10] w-full overflow-hidden">
+                    <Image
+                      src="/laseryt.png"
+                      alt="LaserWeld Texas YouTube channel"
+                      fill
+                      sizes="(min-width: 1024px) 50vw, 100vw"
+                      className="object-cover group-hover:scale-[1.02] transition-transform duration-700"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0" />
+                  </div>
+                  <div className="relative flex items-center justify-between p-6 border-t border-white/10">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-red-600">
+                        <svg className="h-5 w-5 text-white" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <p className="text-sm font-bold text-white">LaserWeld Texas</p>
+                        <p className="text-xs text-gray-400">youtube.com/@LaserWeldTexas</p>
+                      </div>
+                    </div>
+                    <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-red-300 group-hover:gap-2.5 transition-all">
+                      Watch
+                      <ArrowRightIcon className="w-3 h-3" />
+                    </span>
+                  </div>
+                </a>
+
+                <a
+                  href="https://laserweldinc.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative flex items-center justify-between p-5 rounded-2xl border border-gray-100 bg-white hover:border-red-200 hover:shadow-lg hover:shadow-red-600/5 transition-all duration-300"
+                >
                   <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-red-600">
-                      <svg className="h-5 w-5 text-white" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-900 text-white">
+                      <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="2" y1="12" x2="22" y2="12" />
+                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
                       </svg>
                     </div>
                     <div>
-                      <p className="text-sm font-bold text-white">LaserWeld Texas</p>
-                      <p className="text-xs text-gray-400">youtube.com/@LaserWeldTexas</p>
+                      <p className="text-sm font-bold text-gray-900">Visit Their Website</p>
+                      <p className="text-xs text-gray-500">laserweldinc.com</p>
                     </div>
                   </div>
-                  <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-red-300 group-hover:gap-2.5 transition-all">
-                    Watch
+                  <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-red-600 group-hover:gap-2.5 transition-all">
+                    Visit
                     <ArrowRightIcon className="w-3 h-3" />
                   </span>
-                </div>
-              </a>
+                </a>
+              </div>
             </div>
           </FadeIn>
         </div>
