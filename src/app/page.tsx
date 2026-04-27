@@ -477,6 +477,8 @@ export default function Home() {
   const [wordIndex, setWordIndex] = useState(0);
   const [impactMuted, setImpactMuted] = useState(false);
   const [impactPlaying, setImpactPlaying] = useState(false);
+  const [formStatus, setFormStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [formError, setFormError] = useState<string | null>(null);
   const impactVideoRef = useRef<HTMLVideoElement>(null);
   const impactSectionRef = useRef<HTMLDivElement>(null);
 
@@ -929,7 +931,7 @@ export default function Home() {
             Trusted by brands, creators, and nonprofits
           </p>
         </FadeIn>
-        <div className="relative">
+        <div className="marquee-container relative cursor-grab active:cursor-grabbing">
           <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-40 bg-gradient-to-r from-white via-white to-transparent z-10" />
           <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-40 bg-gradient-to-l from-white via-white to-transparent z-10" />
           <div className="animate-marquee flex items-center gap-4 lg:gap-6 whitespace-nowrap">
@@ -1505,15 +1507,36 @@ export default function Home() {
 
                 <form
                   className="mt-8"
-                  onSubmit={(e) => {
+                  onSubmit={async (e) => {
                     e.preventDefault();
-                    const fd = new FormData(e.currentTarget);
-                    const name = fd.get("name");
-                    const email = fd.get("email");
-                    const message = fd.get("message");
-                    window.location.href = `mailto:Noah@gaardmedia.com?subject=Project Inquiry from ${name}&body=${message}%0A%0AFrom: ${name} (${email})`;
+                    const form = e.currentTarget;
+                    const fd = new FormData(form);
+                    setFormStatus("loading");
+                    setFormError(null);
+                    try {
+                      const res = await fetch("https://api.web3forms.com/submit", {
+                        method: "POST",
+                        headers: { Accept: "application/json" },
+                        body: fd,
+                      });
+                      const data = await res.json();
+                      if (data.success) {
+                        setFormStatus("success");
+                        form.reset();
+                      } else {
+                        setFormStatus("error");
+                        setFormError(data.message || "Something went wrong. Please try again.");
+                      }
+                    } catch {
+                      setFormStatus("error");
+                      setFormError("Network error. Please check your connection and try again.");
+                    }
                   }}
                 >
+                  <input type="hidden" name="access_key" value={process.env.NEXT_PUBLIC_WEB3FORMS_KEY || ""} />
+                  <input type="hidden" name="subject" value="New Project Inquiry from Gaard Media Site" />
+                  <input type="hidden" name="from_name" value="Gaard Media Website" />
+                  <input type="checkbox" name="botcheck" className="hidden" tabIndex={-1} autoComplete="off" />
                   <div className="space-y-5">
                     <div className="grid sm:grid-cols-2 gap-5">
                       <div>
@@ -1579,11 +1602,37 @@ export default function Home() {
 
                     <button
                       type="submit"
-                      className="group w-full inline-flex items-center justify-center gap-2 rounded-xl bg-red-600 px-6 py-4 text-sm font-semibold text-white hover:bg-red-700 shadow-lg shadow-red-600/10 transition-all hover:scale-[1.01] active:scale-[0.99]"
+                      disabled={formStatus === "loading"}
+                      className="group w-full inline-flex items-center justify-center gap-2 rounded-xl bg-red-600 px-6 py-4 text-sm font-semibold text-white hover:bg-red-700 shadow-lg shadow-red-600/10 transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-60 disabled:hover:scale-100 disabled:cursor-not-allowed"
                     >
-                      Send Message
-                      <ArrowRightIcon className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                      {formStatus === "loading" ? (
+                        <>
+                          <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" strokeOpacity="0.25" />
+                            <path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+                          </svg>
+                          Sending...
+                        </>
+                      ) : (
+                        <>
+                          Send Message
+                          <ArrowRightIcon className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                        </>
+                      )}
                     </button>
+
+                    {formStatus === "success" && (
+                      <div className="rounded-xl bg-green-50 border border-green-200 p-4 text-sm text-green-800">
+                        <p className="font-semibold">Message sent!</p>
+                        <p className="mt-0.5 text-green-700">Thanks for reaching out. We&apos;ll get back to you within 24 hours.</p>
+                      </div>
+                    )}
+                    {formStatus === "error" && (
+                      <div className="rounded-xl bg-red-50 border border-red-200 p-4 text-sm text-red-800">
+                        <p className="font-semibold">Couldn&apos;t send message</p>
+                        <p className="mt-0.5 text-red-700">{formError}</p>
+                      </div>
+                    )}
                   </div>
                 </form>
               </div>
