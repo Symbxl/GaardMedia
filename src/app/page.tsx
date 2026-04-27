@@ -315,9 +315,12 @@ const services = [
   },
 ];
 
-const brandLogos = [
-  ...Array.from({ length: 10 }, (_, i) => `/${i + 1}.avif`),
-  "/orange.png",
+const brandLogos: Array<{ src: string; scale?: number }> = [
+  { src: "/1.avif" },           // KG
+  { src: "/3.avif" },           // PushFire
+  { src: "/8.avif" },           // TE Connectivity
+  { src: "/9.avif", scale: 1.6 }, // Milk & Honey , zoomed in
+  { src: "/10.avif" },          // Laserweld
 ];
 
 const processSteps = [
@@ -479,8 +482,12 @@ export default function Home() {
   const [impactPlaying, setImpactPlaying] = useState(false);
   const [formStatus, setFormStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [formError, setFormError] = useState<string | null>(null);
+  const [marqueeUserScrolling, setMarqueeUserScrolling] = useState(false);
+  const [marqueeHovered, setMarqueeHovered] = useState(false);
+  const [marqueeCenter, setMarqueeCenter] = useState<number | null>(null);
   const impactVideoRef = useRef<HTMLVideoElement>(null);
   const impactSectionRef = useRef<HTMLDivElement>(null);
+  const marqueeRef = useRef<HTMLDivElement>(null);
 
   const rotatingWords = ["Brands", "Non-Profits", "Businesses", "Creators"];
   const { scrollYProgress } = useScroll();
@@ -499,6 +506,125 @@ export default function Home() {
     }, 2500);
     return () => clearInterval(interval);
   }, [rotatingWords.length]);
+
+  // Auto-scroll the brand marquee with seamless wrap-around + center detection
+  useEffect(() => {
+    const el = marqueeRef.current;
+    if (!el) return;
+    let raf = 0;
+    let last = performance.now();
+    const SPEED = 90; // px per second
+    const tick = (now: number) => {
+      const dt = (now - last) / 1000;
+      last = now;
+      if (!marqueeUserScrolling && !marqueeHovered) {
+        el.scrollLeft += SPEED * dt;
+      }
+      // Seamless wrap-around: 6 copies rendered, wrap by one copy width
+      const copyWidth = el.scrollWidth / 6;
+      if (el.scrollLeft >= copyWidth * 4) {
+        el.scrollLeft -= copyWidth;
+      } else if (el.scrollLeft < copyWidth) {
+        el.scrollLeft += copyWidth;
+      }
+      // Find the card whose center is closest to the viewport center
+      const containerCenter = el.scrollLeft + el.clientWidth / 2;
+      let closest = 0;
+      let closestDist = Infinity;
+      for (let i = 0; i < el.children.length; i++) {
+        const child = el.children[i] as HTMLElement;
+        const cardCenter = child.offsetLeft + child.offsetWidth / 2;
+        const d = Math.abs(cardCenter - containerCenter);
+        if (d < closestDist) {
+          closestDist = d;
+          closest = i;
+        }
+      }
+      setMarqueeCenter((prev) => (prev === closest ? prev : closest));
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [marqueeUserScrolling, marqueeHovered]);
+
+  // Marquee input: mouse-wheel → horizontal scroll, click-and-drag, touch swipe.
+  useEffect(() => {
+    const el = marqueeRef.current;
+    if (!el) return;
+    let resumeTimer: ReturnType<typeof setTimeout> | null = null;
+    const flagUserScrolling = () => {
+      setMarqueeUserScrolling(true);
+      if (resumeTimer) clearTimeout(resumeTimer);
+      resumeTimer = setTimeout(() => setMarqueeUserScrolling(false), 400);
+    };
+    // Wrap scrollLeft into [copyWidth, 2*copyWidth) so backwards scrolling never clamps at 0.
+    const wrap = (value: number) => {
+      const copyWidth = el.scrollWidth / 6;
+      if (copyWidth <= 0) return value;
+      const offset = ((value - copyWidth) % copyWidth + copyWidth) % copyWidth;
+      return copyWidth + offset;
+    };
+
+    // Mouse-wheel (vertical → horizontal, with wrap)
+    const onWheel = (e: WheelEvent) => {
+      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+        e.preventDefault();
+        el.scrollLeft = wrap(el.scrollLeft + e.deltaY);
+      }
+      flagUserScrolling();
+    };
+
+    // Click-and-drag (mouse only — touch uses native overflow scrolling)
+    let dragging = false;
+    let startX = 0;
+    let startScroll = 0;
+    let activePointer: number | null = null;
+    const onPointerDown = (e: PointerEvent) => {
+      if (e.pointerType !== "mouse") return;
+      if (e.button !== 0) return;
+      dragging = true;
+      startX = e.clientX;
+      startScroll = el.scrollLeft;
+      activePointer = e.pointerId;
+      el.setPointerCapture(e.pointerId);
+      el.style.cursor = "grabbing";
+      flagUserScrolling();
+    };
+    const onPointerMove = (e: PointerEvent) => {
+      if (!dragging || e.pointerId !== activePointer) return;
+      e.preventDefault();
+      el.scrollLeft = wrap(startScroll - (e.clientX - startX));
+      flagUserScrolling();
+    };
+    const endDrag = (e: PointerEvent) => {
+      if (!dragging || e.pointerId !== activePointer) return;
+      dragging = false;
+      activePointer = null;
+      el.style.cursor = "";
+      try {
+        el.releasePointerCapture(e.pointerId);
+      } catch {}
+    };
+
+    el.addEventListener("wheel", onWheel, { passive: false });
+    el.addEventListener("pointerdown", onPointerDown);
+    el.addEventListener("pointermove", onPointerMove);
+    el.addEventListener("pointerup", endDrag);
+    el.addEventListener("pointercancel", endDrag);
+    el.addEventListener("touchstart", flagUserScrolling, { passive: true });
+    el.addEventListener("touchmove", flagUserScrolling, { passive: true });
+
+    return () => {
+      if (resumeTimer) clearTimeout(resumeTimer);
+      el.removeEventListener("wheel", onWheel);
+      el.removeEventListener("pointerdown", onPointerDown);
+      el.removeEventListener("pointermove", onPointerMove);
+      el.removeEventListener("pointerup", endDrag);
+      el.removeEventListener("pointercancel", endDrag);
+      el.removeEventListener("touchstart", flagUserScrolling);
+      el.removeEventListener("touchmove", flagUserScrolling);
+    };
+  }, []);
 
   // Play/pause impact video based on scroll visibility
   useEffect(() => {
@@ -931,24 +1057,64 @@ export default function Home() {
             Trusted by brands, creators, and nonprofits
           </p>
         </FadeIn>
-        <div className="marquee-container relative cursor-grab active:cursor-grabbing">
-          <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-40 bg-gradient-to-r from-white via-white to-transparent z-10" />
-          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-40 bg-gradient-to-l from-white via-white to-transparent z-10" />
-          <div className="animate-marquee flex items-center gap-4 lg:gap-6 whitespace-nowrap">
-            {[...brandLogos, ...brandLogos].map((src, i) => (
-              <div
-                key={`row1-${i}`}
-                className="group flex-shrink-0 flex items-center justify-center h-20 w-40 lg:h-24 lg:w-48 rounded-xl border border-gray-100 bg-white/60 hover:bg-white hover:border-gray-200 hover:shadow-md transition-all duration-300"
-              >
-                <Image
-                  src={src}
-                  alt={`Brand partner ${(i % 10) + 1}`}
-                  width={160}
-                  height={64}
-                  className="max-h-10 lg:max-h-12 w-auto object-contain brightness-0 opacity-60 group-hover:opacity-100 transition-all duration-300"
-                />
-              </div>
-            ))}
+        <div
+          className="relative group/marquee"
+          onMouseEnter={() => setMarqueeHovered(true)}
+          onMouseLeave={() => setMarqueeHovered(false)}
+        >
+          <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-24 lg:w-40 bg-gradient-to-r from-white via-white to-transparent z-10" />
+          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-24 lg:w-40 bg-gradient-to-l from-white via-white to-transparent z-10" />
+
+          <button
+            onClick={() => {
+              const el = marqueeRef.current;
+              if (!el) return;
+              const copyWidth = el.scrollWidth / 6;
+              // Pre-shift forward by one copy so smooth-scrolling backwards never clamps at 0
+              if (el.scrollLeft < 320 && copyWidth > 0) el.scrollLeft += copyWidth;
+              el.scrollBy({ left: -320, behavior: "smooth" });
+            }}
+            aria-label="Scroll left"
+            className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white shadow-lg border border-gray-100 flex items-center justify-center text-gray-700 hover:text-red-600 hover:border-red-100 hover:scale-105 active:scale-95 transition-all opacity-0 group-hover/marquee:opacity-100 focus-visible:opacity-100"
+          >
+            <ArrowRightIcon className="w-4 h-4 rotate-180" />
+          </button>
+          <button
+            onClick={() => marqueeRef.current?.scrollBy({ left: 320, behavior: "smooth" })}
+            aria-label="Scroll right"
+            className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white shadow-lg border border-gray-100 flex items-center justify-center text-gray-700 hover:text-red-600 hover:border-red-100 hover:scale-105 active:scale-95 transition-all opacity-0 group-hover/marquee:opacity-100 focus-visible:opacity-100"
+          >
+            <ArrowRightIcon className="w-4 h-4" />
+          </button>
+
+          <div
+            ref={marqueeRef}
+            className="no-scrollbar overflow-x-auto flex items-center gap-4 lg:gap-6 whitespace-nowrap cursor-grab select-none"
+          >
+            {Array.from({ length: 6 }, () => brandLogos).flat().map((logo, i) => {
+              const isCenter = marqueeCenter === i;
+              return (
+                <div
+                  key={`row1-${i}`}
+                  className={`group flex-shrink-0 flex items-center justify-center h-20 w-40 lg:h-24 lg:w-48 rounded-xl border bg-white/60 hover:bg-white hover:shadow-md transition-all duration-500 ease-out overflow-hidden ${
+                    isCenter
+                      ? "scale-110 border-red-200 shadow-md bg-white relative z-[1]"
+                      : "border-gray-100 hover:border-gray-200"
+                  }`}
+                >
+                  <Image
+                    src={logo.src}
+                    alt={`Brand partner ${(i % brandLogos.length) + 1}`}
+                    width={160}
+                    height={64}
+                    style={logo.scale ? { transform: `scale(${logo.scale})` } : undefined}
+                    className={`max-h-10 lg:max-h-12 w-auto object-contain brightness-0 transition-all duration-500 ease-out ${
+                      isCenter ? "opacity-100" : "opacity-60 group-hover:opacity-100"
+                    }`}
+                  />
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
