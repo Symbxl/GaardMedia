@@ -1858,7 +1858,7 @@ export default function Home() {
               <ul className="mt-4 space-y-3">
                 {[
                   { label: "About", href: "#about" },
-                  { label: "Process", href: "#process" },
+                  { label: "Services", href: "#services" },
                   { label: "Testimonials", href: "#testimonials" },
                   { label: "Contact", href: "#contact" },
                 ].map((l) => (
