@@ -477,6 +477,26 @@ function TestimonialCard({ testimonial: t, index: i }: { testimonial: typeof tes
 
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // For mobile nav: close menu first so the page reflows, then scroll to the
+  // anchor target. Without this, the scroll target is computed against the
+  // still-open menu's layout and lands in the wrong spot.
+  const handleMobileLinkClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    if (href.startsWith("#")) {
+      e.preventDefault();
+      setMobileMenuOpen(false);
+      setTimeout(() => {
+        document
+          .getElementById(href.slice(1))
+          ?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 320);
+    } else {
+      setMobileMenuOpen(false);
+    }
+  };
   const [scrolled, setScrolled] = useState(false);
   const [navDropdownOpen, setNavDropdownOpen] = useState<string | null>(null);
   const [wordIndex, setWordIndex] = useState(0);
@@ -789,7 +809,7 @@ export default function Home() {
                         <motion.a
                           key={item.href}
                           href={item.href}
-                          onClick={() => setMobileMenuOpen(false)}
+                          onClick={(e) => handleMobileLinkClick(e, item.href)}
                           initial={{ opacity: 0, x: -20 }}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: (i + j + 1) * 0.05 }}
@@ -803,7 +823,7 @@ export default function Home() {
                     <motion.a
                       key={link.href}
                       href={link.href}
-                      onClick={() => setMobileMenuOpen(false)}
+                      onClick={(e) => handleMobileLinkClick(e, link.href!)}
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: i * 0.05 }}
@@ -815,7 +835,7 @@ export default function Home() {
                 )}
                 <motion.a
                   href="#contact"
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={(e) => handleMobileLinkClick(e, "#contact")}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: navLinks.length * 0.05 }}
