@@ -315,12 +315,14 @@ const services = [
   },
 ];
 
-const brandLogos: Array<{ src: string; scale?: number }> = [
+const brandLogos: Array<{ src: string; scale?: number; noFilter?: boolean }> = [
   { src: "/1.avif" },           // KG
   { src: "/3.avif" },           // PushFire
   { src: "/8.avif" },           // TE Connectivity
   { src: "/9.avif", scale: 1.6 }, // Milk & Honey , zoomed in
   { src: "/10.avif" },          // Laserweld
+  { src: "/logo-r.jpg", noFilter: true }, // Reuters , baked-in white bg, render in color
+  { src: "/logo-g.png", noFilter: true }, // Grundfos , flat PNG without alpha, render in color
 ];
 
 const processSteps = [
@@ -1108,7 +1110,9 @@ export default function Home() {
                     width={160}
                     height={64}
                     style={logo.scale ? { transform: `scale(${logo.scale})` } : undefined}
-                    className={`max-h-10 lg:max-h-12 w-auto object-contain brightness-0 transition-all duration-500 ease-out ${
+                    className={`max-h-10 lg:max-h-12 w-auto object-contain transition-all duration-500 ease-out ${
+                      logo.noFilter ? "" : "brightness-0"
+                    } ${
                       isCenter ? "opacity-100" : "opacity-60 group-hover:opacity-100"
                     }`}
                   />
