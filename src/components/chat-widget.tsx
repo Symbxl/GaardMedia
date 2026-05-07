@@ -48,6 +48,8 @@ export default function ChatWidget() {
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
   const [showBubble, setShowBubble] = useState(false);
+  const [step, setStep] = useState<"message" | "contact">("message");
+  const [pendingMessage, setPendingMessage] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -74,29 +76,48 @@ export default function ChatWidget() {
   const handleSend = async () => {
     if (!input.trim() || submitted || sending) return;
 
-    const userMessage = input.trim();
+    const value = input.trim();
     setInput("");
-    setSending(true);
-    setMessages((prev) => [...prev, { from: "me", text: userMessage }]);
+    setMessages((prev) => [...prev, { from: "me", text: value }]);
 
+    if (step === "message") {
+      // Capture their message and ask for contact info
+      setPendingMessage(value);
+      setStep("contact");
+      // Slight delay so the bot reply feels natural, not instant
+      setTimeout(() => {
+        setMessages((prev) => [
+          ...prev,
+          {
+            from: "them",
+            text: "What's a good email address or phone number to get back to you at?",
+          },
+        ]);
+      }, 600);
+      return;
+    }
+
+    // Step 2: contact info provided , submit both to Formspree
+    setSending(true);
     try {
-      // TODO: Replace YOUR_FORM_ID with your Formspree form ID from https://formspree.io
-      // Create a free form at formspree.io and set the recipient to inquirezach@gmail.com
-      const res = await fetch("https://formspree.io/f/YOUR_FORM_ID", {
+      const res = await fetch("https://formspree.io/f/xlgzwlbw", {
         method: "POST",
-        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
-          message: userMessage,
+          message: pendingMessage,
+          contact: value,
           _subject: "New Chat Message from Gaard Media Website",
         }),
       });
 
       if (res.ok) {
         setSubmitted(true);
-        setMessages((prev) => [
-          ...prev,
-          { from: "them", text: "Thanks! We'll get back to you asap!" },
-        ]);
+        setTimeout(() => {
+          setMessages((prev) => [
+            ...prev,
+            { from: "them", text: "Thank you! We'll reach back out shortly" },
+          ]);
+        }, 600);
       } else {
         setMessages((prev) => [
           ...prev,
@@ -188,7 +209,7 @@ export default function ChatWidget() {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleSend()}
-                  placeholder="Type a message..."
+                  placeholder={step === "contact" ? "Email or phone number..." : "Type a message..."}
                   className="flex-1 rounded-full bg-gray-100 px-4 py-2 text-sm text-gray-800 placeholder-gray-400 outline-none focus:ring-2 focus:ring-red-500/30 transition-all"
                 />
                 <button

@@ -1680,18 +1680,20 @@ export default function Home() {
                     setFormStatus("loading");
                     setFormError(null);
                     try {
-                      const res = await fetch("https://api.web3forms.com/submit", {
+                      const res = await fetch("https://formspree.io/f/xlgzwlbw", {
                         method: "POST",
                         headers: { Accept: "application/json" },
                         body: fd,
                       });
-                      const data = await res.json();
-                      if (data.success) {
+                      if (res.ok) {
                         setFormStatus("success");
                         form.reset();
                       } else {
+                        const data = await res.json().catch(() => ({}));
                         setFormStatus("error");
-                        setFormError(data.message || "Something went wrong. Please try again.");
+                        setFormError(
+                          data?.errors?.[0]?.message || "Something went wrong. Please try again."
+                        );
                       }
                     } catch {
                       setFormStatus("error");
@@ -1699,10 +1701,8 @@ export default function Home() {
                     }
                   }}
                 >
-                  <input type="hidden" name="access_key" value={process.env.NEXT_PUBLIC_WEB3FORMS_KEY || ""} />
-                  <input type="hidden" name="subject" value="New Project Inquiry from Gaard Media Site" />
-                  <input type="hidden" name="from_name" value="Gaard Media Website" />
-                  <input type="checkbox" name="botcheck" className="hidden" tabIndex={-1} autoComplete="off" />
+                  <input type="hidden" name="_subject" value="New Project Inquiry from Gaard Media Site" />
+                  <input type="text" name="_gotcha" className="hidden" tabIndex={-1} autoComplete="off" />
                   <div className="space-y-5">
                     <div className="grid sm:grid-cols-2 gap-5">
                       <div>
